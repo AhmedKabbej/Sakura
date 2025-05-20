@@ -85,7 +85,17 @@ export class ScrollManager {
     });
   }
 
-  scrollWithinFrameThree() {}
+  scrollWithinFrameThree() {
+    this.scrollTimeline.to(this.scrollElements[2][0], {
+        x:300
+    });
+    this.scrollTimeline.to(this.scrollElements[2][1], {
+        x:500
+    }, "<");
+    this.scrollTimeline.to(this.scrollElements[2][2], {
+        x:800
+    }, "<");
+  }
 
   scrollWithinFrameFour() {}
 
