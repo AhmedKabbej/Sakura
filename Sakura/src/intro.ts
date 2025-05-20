@@ -23,12 +23,12 @@ export class Intro {
     maskSizeHeight: number;
     haloCanvas: HTMLCanvasElement;
     haloCtx: CanvasRenderingContext2D;
-    haloData: ImageData;
-    wr: number;
-    hr: number;
-    scale: number;
-    x: number;
-    y: number;
+    haloData: ImageData | undefined;
+    wr: number | undefined;
+    hr: number | undefined;
+    scale: number | undefined;
+    x: number | undefined;
+    y: number | undefined;
     constructor() {
         this.canvas = document.getElementById("burnCanvas") as HTMLCanvasElement;
         this.startButton = document.getElementById("startButton") as HTMLElement;
