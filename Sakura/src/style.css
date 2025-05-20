@@ -7,9 +7,23 @@ body{
   margin: 0px;
   padding: 0px;
   height: 100%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction: column;
+  font-family: "Mori";
+/*   background: #0e100f; */
+  background: radial-gradient(129% 99% at 200% 85%, rgb(220, 200, 180) 20%, rgb(232, 219, 201) 90%),    
+    url('https://assets.codepen.io/16327/noise-e82662fe.png'),
+    url('https://assets.codepen.io/16327/noise-e82662fe.png'),
+    url('https://assets.codepen.io/16327/noise-e82662fe.png');  
+  background-blend-mode: color-dodge;
+
 }
 .Japan{
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
+
