@@ -5,12 +5,14 @@ gsap.registerPlugin(ScrollTrigger);
 import Lenis from "lenis";
 
 export class ScrollManager {
-  scrollContainer: HTMLElement;
-  frameContainers: NodeListOf<HTMLElement>;
-  scrollElements: { [index: number]: NodeListOf<HTMLElement> } = {};
-  scrollTimeline: GSAPTimeline;
+  scrollContainer: HTMLElement; //contains all the scenes, the horizontal scrolling is in it
+  frameContainers: NodeListOf<HTMLElement>; //the individual scenes containers
+  scrollElements: { [index: number]: NodeListOf<HTMLElement> } = {}; //the individual scenes containers and the element within
+
+  scrollTimeline: GSAPTimeline; //the timeline that plays with the scroll
 
   constructor() {
+    // get HTMLElements
     this.scrollContainer = document.querySelector(
       "#main-container"
     ) as HTMLElement;
@@ -23,32 +25,51 @@ export class ScrollManager {
       ) as NodeListOf<HTMLElement>;
     });
 
+    // init scrollTrigger & its timeline
     this.scrollTimeline = gsap.timeline();
     this.initScroll();
 
     this.initLenis();
   }
 
+    //************************ *********************** ************************\\
+   //************************ Scroll Trigger & timeline ************************\\
+  //************************** *********************** **************************\\
+
+
+  // Reference for the scrollTrigger:
+  // https://gsap.com/community/forums/topic/34273-horizontal-scroll-with-nesteed-animations/ -> timeline on scrollTrigger w/ trigger container & tween -xPercent until pinned section then pinned section anim then -xPercent again
+
+  // Other way to do what we want with scrollTrigger if there's an issue with the technique we're using now:
+  // https://gsap.com/community/forums/topic/34434-pinning-inside-of-horizontal-scrolling/ -> the pinned slider goes against the horizontal scrolling animation (with a positive xPercent)
+
+  /**
+   * Makes the link between scroll and the animation timeline & feeds the timeline its animations between each scenes and within each scenes
+   */
   initScroll() {
     ScrollTrigger.create({
       trigger: this.scrollContainer,
       animation: this.scrollTimeline,
       pin: true,
       scrub: true,
-      end: window.innerWidth * this.frameContainers.length,
+      end: window.innerWidth * this.frameContainers.length, // this affets the speed of the scroll
     });
 
     this.frameContainers.forEach((_, idx) => {
       this.scrollWithin(idx);
 
-      if (idx === this.frameContainers.length - 1) return;
+      if (idx === this.frameContainers.length - 1) return; //don't get to the next scene for the last scene
+      //get to the next scene
       this.scrollTimeline.to(this.scrollContainer, {
-        //animate frame container to get to the center
         x: "-=100vw",
       });
     });
   }
 
+  /**
+   * adds to the timeline the animation for a given scene
+   * @param i the index of the scene
+   */
   scrollWithin(i: number) {
     //add to scrollTrigger timeline anims for each scenes
     switch (i) {
@@ -69,7 +90,11 @@ export class ScrollManager {
     }
   }
 
+  /**
+   * adds to the scrollTrigger timeline all the animation happening during the focus on the first scene
+   */
   scrollWithinFrameOne() {
+    //temporary code for testing
     this.scrollElements[0].forEach((scrollEl) => {
       this.scrollTimeline.to(scrollEl, {
         x: 100,
@@ -77,7 +102,11 @@ export class ScrollManager {
     });
   }
 
+  /**
+   * adds to the scrollTrigger timeline all the animation happening during the focus on the second scene
+   */
   scrollWithinFrameTwo() {
+    //temporary code but also an example of getting objects out of screen (mostly thanks to overflow hidden on .scene in the css)
     this.scrollElements[1].forEach((scrollEl) => {
       this.scrollTimeline.to(scrollEl, {
         x: -100,
@@ -85,7 +114,11 @@ export class ScrollManager {
     });
   }
 
+  /**
+   * adds to the scrollTrigger timeline all the animation happening during the focus on the third scene
+   */
   scrollWithinFrameThree() {
+    //temporary code but also an example of how to play tweens simaltaenously
     this.scrollTimeline.to(this.scrollElements[2][0], {
         x:300
     });
@@ -97,8 +130,18 @@ export class ScrollManager {
     }, "<");
   }
 
+  /**
+   * adds to the scrollTrigger timeline all the animation happening during the focus on the fourth scene
+   */
   scrollWithinFrameFour() {}
 
+    //*************************** ***************** ***************************\\
+   //*************************** Lenis smooth scroll ***************************\\
+  //***************************** ***************** *****************************\\
+
+  /**
+   * sets up Lenis's smooth scroll feature to be used with gsap's scrollTrigger
+   */
   initLenis() {
     // Initialize a new Lenis instance for smooth scrolling
     const lenis = new Lenis();
@@ -116,11 +159,3 @@ export class ScrollManager {
     gsap.ticker.lagSmoothing(0);
   }
 }
-
-// Reference for the scrollTrigger:
-// https://gsap.com/community/forums/topic/34273-horizontal-scroll-with-nesteed-animations/ -> timeline on scrollTrigger w/ trigger container & tween -xPercent until pinned section then pinned section anim then -xPercent again
-
-// Other way to do what we want with scrollTrigger if there's an issue with the technique we're using now:
-// https://gsap.com/community/forums/topic/34434-pinning-inside-of-horizontal-scrolling/ -> the pinned slider goes against the horizontal scrolling animation (with a positive xPercent)
-
-// 1920x1080
