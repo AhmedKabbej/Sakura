@@ -1,6 +1,4 @@
-import { gsap } from "gsap";
-    
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollManager } from "./ScrollManager";
 
 class Manager {
     constructor() {
@@ -9,6 +7,7 @@ class Manager {
     }
 
     initScrollManager() {
+        new ScrollManager;
     }
 
     initSoundManager() {

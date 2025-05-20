@@ -2,17 +2,25 @@ body{
   margin: 0;
 }
 
-#app{
+#main-container{
   display: flex;
-  gap: 512px;
-  padding: 24px;
 }
 
-.frame-container{
-  width: 2048px;
-  height: 1024px;
-  border: 1px solid black;
+.scene-container{
+  /*screen size should be 1920x1080*/
+  width: 100vw; 
+  height: 100vh;
   flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.scene{
+  width: 1664px; /* 1920 - 128*2 */
+  height: 824px; /* 1080 - 128*2 */
+  border: 1px solid black;
+  overflow: hidden;
 }
 
 .green{
