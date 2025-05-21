@@ -29,45 +29,49 @@ export class Intro {
     scale: number | undefined;
     x: number | undefined;
     y: number | undefined;
+    newWidth!: number;
+    newHeight!: number;
     constructor() {
         this.canvas = document.getElementById("burnCanvas") as HTMLCanvasElement;
         this.startButton = document.getElementById("startButton") as HTMLElement;
         this.ctx = this.canvas.getContext("2d", { alpha: true }) as CanvasRenderingContext2D;
-        this.width = window.innerWidth;
-        this.height = window.innerHeight;
         console.log(this.canvas);
         console.log(this.ctx);
 
-        this.maskSizeWidth = window.innerWidth;
-        this.maskSizeHeight = window.innerHeight;
-        this.maskCanvas = document.createElement("canvas");
-        this.maskCanvas.width = this.maskSizeWidth;
-        this.maskCanvas.height = this.maskSizeHeight;
-        this.maskCtx = this.maskCanvas.getContext("2d") as CanvasRenderingContext2D;
-
-        this.haloCanvas = document.createElement("canvas");
-        this.haloCanvas.width = this.maskSizeWidth;
-        this.haloCanvas.height = this.maskSizeHeight;
-        this.haloCtx = this.haloCanvas.getContext("2d") as CanvasRenderingContext2D;
 
         this.simplex = createNoise3D();
         this.image = new Image();
         this.image.crossOrigin = "anonymous";
         this.image.src = imgUrl;
 
-        this.maskData = this.maskCtx.createImageData(this.maskSizeWidth, this.maskSizeHeight);
-        this.data = this.maskData.data;
-        this.noiseValue = 0
-        this.delta = 0
-
-
-        this.burnSpeed = 0.02;
-        this.burnThreshold = -1;
-        this.noiseMap = new Float32Array(this.maskSizeWidth * this.maskSizeHeight);
-
         this.image.onload = () => {
-            this.canvas.width = this.width;
-            this.canvas.height = this.height;
+
+            this.maskSizeWidth = this.image.width;
+            this.maskSizeHeight = this.image.height;
+            this.width = this.image.width;
+            this.height = this.image.height;
+            this.maskCanvas = document.createElement("canvas");
+            this.maskCanvas.width = this.maskSizeWidth;
+            this.maskCanvas.height = this.maskSizeHeight;
+            this.maskCtx = this.maskCanvas.getContext("2d") as CanvasRenderingContext2D;
+
+            this.haloCanvas = document.createElement("canvas");
+            this.haloCanvas.width = this.maskSizeWidth;
+            this.haloCanvas.height = this.maskSizeHeight;
+            this.haloCtx = this.haloCanvas.getContext("2d") as CanvasRenderingContext2D;
+
+            this.maskData = this.maskCtx.createImageData(this.maskSizeWidth, this.maskSizeHeight);
+            this.data = this.maskData.data;
+            this.noiseValue = 0
+            this.delta = 0
+
+            this.burnSpeed = 0.070;
+            this.burnThreshold = -1;
+            this.noiseMap = new Float32Array(this.maskSizeWidth * this.maskSizeHeight);
+
+            console.log(this.image.width)
+            this.canvas.width = this.maskSizeWidth;
+            this.canvas.height = this.maskSizeHeight;
             this.init(); // ne lance init() qu'après chargement
         };
     }
@@ -82,24 +86,21 @@ export class Intro {
     initImage() {
         this.ctx.clearRect(0, 0, this.width, this.height);
 
-        this.wr = this.canvas.width / this.image.width;
-        this.hr = this.canvas.height / this.image.height;
-        this.scale = Math.max(this.wr, this.hr);
+        // object-fit: fill — on force l'image à prendre toute la taille du canvas
+        this.newWidth = this.canvas.width;
+        this.newHeight = this.canvas.height;
+        this.x = 0;
+        this.y = 0;
 
-        this.x = (this.canvas.width - this.image.width * this.scale) / 2;
-        this.y = (this.canvas.height - this.image.height * this.scale) / 2;
-
-
-        // 1. Dessine l’image normalement
         this.ctx.globalCompositeOperation = "source-over";
-        this.ctx.drawImage(
-            this.image,
-            this.x, this.y,
-            this.image.width * this.scale,
-            this.image.height * this.scale
-        );
-        console.log(this.width)    }
-    
+        this.ctx.drawImage(this.image, this.x, this.y, this.newWidth, this.newHeight);
+
+        // (optionnel, mais présent dans ton code)
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.drawImage(this.image, this.x, this.y, this.newWidth, this.newHeight);
+    }
+
+
     handleButtonClick() {
         // this.startButton.style.opacity = 0;
         this.animate()
@@ -128,7 +129,7 @@ export class Intro {
                 const i = (y * this.maskSizeWidth + x) * 4; // ✅ largeur ici !
                 const noise = this.noiseMap[y * this.maskSizeWidth + x]; // idem
                 const delta = noise - this.burnThreshold;
-        
+
                 if (delta < -0.05) {
                     this.maskData.data[i + 3] = 255; // Brûlé
                 } else if (delta < 0.05) {

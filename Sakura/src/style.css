@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Sudoku&display=swap');
+@font-face {
+  font-family: 'B Barusan Lindu';
+  src: url('./fonts/BBarusanLindu.woff2') format('woff2'),
+       url('./fonts/BBarusanLindu.woff') format('woff'),
+       url('./fonts/BBarusanLindu.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 body{
   margin: 0px;
   padding: 0px;
@@ -48,4 +57,39 @@ h1 {
 }
 #startButton {
   z-index: 1000;
+  /* font-family: 'Sudoku', sans-serif; */
+  position: absolute;
+  top: 57%;         /* Centre verticalement */
+  left: 120px;       /* Distance du bord gauche */
+  transform: translateY(-50%); /* Corrige l’alignement vertical */
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  font-family: 'B Barusan Lindu', sans-serif;
+  font-size: 144px;
+  color: black;
+  cursor: pointer;
+  user-select: none;
+  pointer-events: auto;
+  
+
+}
+
+#startButton span {
+  line-height: 1;
+  margin: 2px 0;
+}
+
+#startButton:hover {
+  color: #111111;
+  transform: translateY(-50%) scale(1.05);
+  transition: transform 0.3s, color 0.3s;
+}
+
+/* === BACKGROUND BLUR ON HOVER === */
+body.blur-active *:not(#startButton):not(#startButton *) {
+  filter: blur(6px);
+  transition: filter 0.3s ease;
 }

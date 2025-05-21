@@ -11,9 +11,33 @@
 
     <h1>coucou</h1>
     <canvas id="burnCanvas" ></canvas>
+    
+    <!-- <button id="startButton">Start</button> -->
+    <div id="startButton">
+      <span>S</span>
+      <span>T</span>
+      <span>A</span>
+      <span>R</span>
+      <span>T</span>
+    </div>
+    <script>
+      const startButton = document.getElementById("startButton");
 
-    <button id="startButton">Start</button>
-    <div class="container-text"><p class="text">Il y a fort longtemps, dans un Japon ravagé par les guerres, une forêt restait intacte, épargnée par les conflits.</p></div>
+startButton.addEventListener("mouseenter", () => {
+  document.body.classList.add("blur-active");
+});
+
+startButton.addEventListener("mouseleave", () => {
+  document.body.classList.remove("blur-active");
+});
+
+startButton.addEventListener("click", () => {
+  document.body.classList.remove("blur-active");
+  startButton.style.display = "none";
+});
+    </script>
+    
+    <!-- <div class="container-text"><p class="text">Il y a fort longtemps, dans un Japon ravagé par les guerres, une forêt restait intacte, épargnée par les conflits.</p></div> -->
     <script type="module" src="/src/main.ts"></script>
 
   </body>
