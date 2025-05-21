@@ -6,8 +6,8 @@ export class Intro {
     canvas: HTMLCanvasElement;
     ctx: CanvasRenderingContext2D;
     startButton: HTMLElement;
-    width: number;
-    height: number;
+    width: number | undefined;
+    height: number | undefined;
     maskCanvas: HTMLCanvasElement;
     maskCtx: CanvasRenderingContext2D;
     simplex: any;
@@ -31,13 +31,15 @@ export class Intro {
     y: number | undefined;
     newWidth!: number;
     newHeight!: number;
+    startButton: HTMLElement | null;
+
     constructor() {
         this.canvas = document.getElementById("burnCanvas") as HTMLCanvasElement;
         this.startButton = document.getElementById("startButton") as HTMLElement;
         this.ctx = this.canvas.getContext("2d", { alpha: true }) as CanvasRenderingContext2D;
         console.log(this.canvas);
         console.log(this.ctx);
-
+        this.startButton = document.getElementById("startButton");
 
         this.simplex = createNoise3D();
         this.image = new Image();
@@ -65,7 +67,7 @@ export class Intro {
             this.noiseValue = 0
             this.delta = 0
 
-            this.burnSpeed = 0.070;
+            this.burnSpeed = 0.030;
             this.burnThreshold = -1;
             this.noiseMap = new Float32Array(this.maskSizeWidth * this.maskSizeHeight);
 
@@ -82,6 +84,26 @@ export class Intro {
     }
     initEvents() {
         this.startButton.addEventListener('click', this.handleButtonClick.bind(this))
+
+
+        this.startButton.addEventListener("mouseenter", () => {
+            document.body.classList.add("blur-active");
+        });
+
+        this.startButton.addEventListener("mouseleave", () => {
+            document.body.classList.remove("blur-active");
+        });
+
+        this.startButton.addEventListener("click", () => {
+            document.body.classList.remove("blur-active");
+            this.startButton.classList.add("decreaseOpacity");
+
+            // Attend 3 secondes (3000 ms) avant de vraiment cacher l'élément
+            setTimeout(() => {
+                this.startButton.style.display = "none";
+            }, 1000);
+
+        });
     }
     initImage() {
         this.ctx.clearRect(0, 0, this.width, this.height);

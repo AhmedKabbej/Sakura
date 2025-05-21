@@ -73,7 +73,7 @@ h1 {
   cursor: pointer;
   user-select: none;
   pointer-events: auto;
-  
+  opacity: 1;
 
 }
 
@@ -85,11 +85,15 @@ h1 {
 #startButton:hover {
   color: #111111;
   transform: translateY(-50%) scale(1.05);
-  transition: transform 0.3s, color 0.3s;
+  transition: transform 0.3s, color 0.3s, opacity 1s;
 }
 
 /* === BACKGROUND BLUR ON HOVER === */
 body.blur-active *:not(#startButton):not(#startButton *) {
   filter: blur(6px);
   transition: filter 0.3s ease;
+}
+
+.decreaseOpacity{
+  opacity: 0 !important;
 }

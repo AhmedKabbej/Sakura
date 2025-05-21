@@ -1,44 +1,32 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="src/style.css">
-    <title>Sakura</title>
-  </head>
-  <body>
-    <div id="app"></div>
 
-    <h1>coucou</h1>
-    <canvas id="burnCanvas" ></canvas>
-    
-    <!-- <button id="startButton">Start</button> -->
-    <div id="startButton">
-      <span>S</span>
-      <span>T</span>
-      <span>A</span>
-      <span>R</span>
-      <span>T</span>
-    </div>
-    <script>
-      const startButton = document.getElementById("startButton");
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="src/style.css">
+  <title>Sakura</title>
+</head>
 
-startButton.addEventListener("mouseenter", () => {
-  document.body.classList.add("blur-active");
-});
+<body>
+  <div id="app"></div>
 
-startButton.addEventListener("mouseleave", () => {
-  document.body.classList.remove("blur-active");
-});
+  <h1>coucou</h1>
+  <canvas id="burnCanvas"></canvas>
 
-startButton.addEventListener("click", () => {
-  document.body.classList.remove("blur-active");
-  startButton.style.display = "none";
-});
-    </script>
-    
-    <!-- <div class="container-text"><p class="text">Il y a fort longtemps, dans un Japon ravagé par les guerres, une forêt restait intacte, épargnée par les conflits.</p></div> -->
-    <script type="module" src="/src/main.ts"></script>
+  <!-- <button id="startButton">Start</button> -->
+  <div id="startButton">
+    <span>S</span>
+    <span>T</span>
+    <span>A</span>
+    <span>R</span>
+    <span>T</span>
+  </div>
+ 
 
-  </body>
+  <!-- <div class="container-text"><p class="text">Il y a fort longtemps, dans un Japon ravagé par les guerres, une forêt restait intacte, épargnée par les conflits.</p></div> -->
+  <script type="module" src="/src/main.ts"></script>
+
+</body>
+
 </html>

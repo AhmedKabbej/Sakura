@@ -5,11 +5,14 @@ gsap.registerPlugin(SplitText);
 import { Intro } from "./intro.ts";
 
 class Manager {
+   
     constructor() {
+        
         this.initIntro()
         this.initScrollManager()
         this.initSoundManager()
         this.animationSplitText()
+        
     }
 
     initScrollManager() {
@@ -31,5 +34,7 @@ class Manager {
             stagger:0.1
         })
 }}
+
+
 
 window.addEventListener("DOMContentLoaded", () => {new Manager})
