@@ -1,6 +1,7 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger);
+import { SplitText } from "gsap/SplitText";
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 import Lenis from "lenis";
 
@@ -35,7 +36,6 @@ export class ScrollManager {
     //************************ *********************** ************************\\
    //************************ Scroll Trigger & timeline ************************\\
   //************************** *********************** **************************\\
-
 
   // Reference for the scrollTrigger:
   // https://gsap.com/community/forums/topic/34273-horizontal-scroll-with-nesteed-animations/ -> timeline on scrollTrigger w/ trigger container & tween -xPercent until pinned section then pinned section anim then -xPercent again
@@ -120,20 +120,49 @@ export class ScrollManager {
   scrollWithinFrameThree() {
     //temporary code but also an example of how to play tweens simaltaenously
     this.scrollTimeline.to(this.scrollElements[2][0], {
-        x:300
+      x: 300,
     });
-    this.scrollTimeline.to(this.scrollElements[2][1], {
-        x:500
-    }, "<");
-    this.scrollTimeline.to(this.scrollElements[2][2], {
-        x:800
-    }, "<");
+    this.scrollTimeline.to(
+      this.scrollElements[2][1],
+      {
+        x: 500,
+      },
+      "<"
+    );
+    this.scrollTimeline.to(
+      this.scrollElements[2][2],
+      {
+        x: 800,
+      },
+      "<"
+    );
   }
 
   /**
    * adds to the scrollTrigger timeline all the animation happening during the focus on the fourth scene
    */
   scrollWithinFrameFour() {}
+
+    //**************************** **************** ***************************\\
+   //**************************** Animations Factory ***************************\\
+  //****************************** **************** *****************************\\
+
+  /**
+   * Generates a split text animation for a given HTML element
+   * @param element the HTMLElement to animate, should be a paragraph, or heading, or another element containing only text
+   * @returns the animation to be added to a timeline or played
+   */
+  createSplitTextAnim(element: HTMLElement) {
+    const split = SplitText.create(element, {
+      type: "words",
+    });
+    const tween = gsap.from(split.words, {
+      x: -1,
+      autoAlpha: 0,
+      stagger: 0.1,
+    });
+    return tween;
+  }
 
     //*************************** ***************** ***************************\\
    //*************************** Lenis smooth scroll ***************************\\
