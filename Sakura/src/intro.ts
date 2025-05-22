@@ -1,6 +1,6 @@
 import { createNoise3D } from "simplex-noise";
 
-import imgUrl from '/japan.png'
+import imgUrl from '/intro-screen.png'
 
 export class Intro {
     canvas: HTMLCanvasElement;
@@ -179,6 +179,10 @@ export class Intro {
         this.burnThreshold += this.burnSpeed;
         if (this.burnThreshold < 1.1) {
             requestAnimationFrame(this.animate.bind(this));
+        } else {
+            //send event to inform of completion and enable Scroll
+            const completedIntro = new CustomEvent("completedIntro")
+            document.dispatchEvent(completedIntro);
         }
     }
 
