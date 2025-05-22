@@ -6,8 +6,8 @@ export class Intro {
     canvas: HTMLCanvasElement;
     ctx: CanvasRenderingContext2D;
     startButton: HTMLElement;
-    width: number | undefined;
-    height: number | undefined;
+    width: number;
+    height: number;
     maskCanvas: HTMLCanvasElement;
     maskCtx: CanvasRenderingContext2D;
     simplex: any;
@@ -31,15 +31,11 @@ export class Intro {
     y: number | undefined;
     newWidth!: number;
     newHeight!: number;
-    startButton: HTMLElement | null;
 
     constructor() {
         this.canvas = document.getElementById("burnCanvas") as HTMLCanvasElement;
         this.startButton = document.getElementById("startButton") as HTMLElement;
         this.ctx = this.canvas.getContext("2d", { alpha: true }) as CanvasRenderingContext2D;
-        console.log(this.canvas);
-        console.log(this.ctx);
-        this.startButton = document.getElementById("startButton");
 
         this.simplex = createNoise3D();
         this.image = new Image();
@@ -71,7 +67,6 @@ export class Intro {
             this.burnThreshold = -1;
             this.noiseMap = new Float32Array(this.maskSizeWidth * this.maskSizeHeight);
 
-            console.log(this.image.width)
             this.canvas.width = this.maskSizeWidth;
             this.canvas.height = this.maskSizeHeight;
             this.init(); // ne lance init() qu'après chargement
