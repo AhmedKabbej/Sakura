@@ -4,21 +4,16 @@
   font-weight: normal;
   font-style: normal;
 }
+
 body {
   margin: 0px;
   overflow-x: hidden;
-
   font-family: "Mori";
 }
 
-.text {
-  position: relative;
-  color: rgb(242, 246, 249);
-  padding: 0;
-  margin: 0;
-}
+/************ INTRODUCTION ************/
 
-#burnCanvas {
+#burn-canvas {
   z-index: 900;
   width: 100%;
   height: 100%;
@@ -27,7 +22,7 @@ body {
   background-color: transparent;
 }
 
-#startButton {
+#start-button {
   z-index: 1000;
   position: absolute;
   top: 57%; /* Centre verticalement */
@@ -47,10 +42,28 @@ body {
   opacity: 1;
 }
 
-#startButton span {
+#start-button span {
   line-height: 1;
   margin: 2px 0;
 }
+
+#start-button:hover {
+  color: #111111;
+  transform: translateY(-50%) scale(1.05);
+  transition: transform 0.3s, color 0.3s, opacity 1s;
+}
+
+/* === BACKGROUND BLUR ON HOVER === */
+body.blur-active *:not(#start-button):not(#start-button *) {
+  filter: blur(6px);
+  transition: filter 0.3s ease;
+}
+
+.decrease-opacity {
+  opacity: 0 !important;
+}
+
+/************ SCENES ************/
 
 #main-container {
   display: flex;
@@ -82,22 +95,6 @@ body {
   max-height: 80%;
   border: 1px solid black;
   overflow: hidden;
-}
-
-#startButton:hover {
-  color: #111111;
-  transform: translateY(-50%) scale(1.05);
-  transition: transform 0.3s, color 0.3s, opacity 1s;
-}
-
-/* === BACKGROUND BLUR ON HOVER === */
-body.blur-active *:not(#startButton):not(#startButton *) {
-  filter: blur(6px);
-  transition: filter 0.3s ease;
-}
-
-.decreaseOpacity {
-  opacity: 0 !important;
 }
 
 /* test */

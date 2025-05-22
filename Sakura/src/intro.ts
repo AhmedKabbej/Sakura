@@ -33,8 +33,8 @@ export class Intro {
     newHeight!: number;
 
     constructor() {
-        this.canvas = document.getElementById("burnCanvas") as HTMLCanvasElement;
-        this.startButton = document.getElementById("startButton") as HTMLElement;
+        this.canvas = document.getElementById("burn-canvas") as HTMLCanvasElement;
+        this.startButton = document.getElementById("start-button") as HTMLElement;
         this.ctx = this.canvas.getContext("2d", { alpha: true }) as CanvasRenderingContext2D;
 
         this.simplex = createNoise3D();
@@ -91,7 +91,7 @@ export class Intro {
 
         this.startButton.addEventListener("click", () => {
             document.body.classList.remove("blur-active");
-            this.startButton.classList.add("decreaseOpacity");
+            this.startButton.classList.add("decrease-opacity");
 
             // Attend 3 secondes (3000 ms) avant de vraiment cacher l'élément
             setTimeout(() => {
