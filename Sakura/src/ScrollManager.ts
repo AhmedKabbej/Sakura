@@ -9,6 +9,7 @@ export class ScrollManager {
   scrollContainer: HTMLElement; //contains all the scenes, the horizontal scrolling is in it
   frameContainers: NodeListOf<HTMLElement>; //the individual scenes containers
   scrollElements: { [index: number]: NodeListOf<HTMLElement> } = {}; //the individual scenes containers and the element within
+  sceneWidth : number;
 
   scrollTimeline: GSAPTimeline; //the timeline that plays with the scroll
 
@@ -25,6 +26,7 @@ export class ScrollManager {
         ".scene-element"
       ) as NodeListOf<HTMLElement>;
     });
+    this.sceneWidth = (document.querySelector(".scene") as HTMLElement).clientWidth
 
     // init scrollTrigger & its timeline
     this.scrollTimeline = gsap.timeline();
@@ -106,12 +108,23 @@ export class ScrollManager {
    * adds to the scrollTrigger timeline all the animation happening during the focus on the second scene
    */
   scrollWithinFrameTwo() {
-    //temporary code but also an example of getting objects out of screen (mostly thanks to overflow hidden on .scene in the css)
-    this.scrollElements[1].forEach((scrollEl) => {
-      this.scrollTimeline.to(scrollEl, {
-        x: -100,
-      });
+    this.scrollTimeline.to(this.scrollElements[1][0], {
+      x: -this.scrollElements[1][0].clientWidth  + this.sceneWidth,
     });
+    this.scrollTimeline.to(
+      this.scrollElements[1][1],
+      {
+        x: -this.scrollElements[1][1].clientWidth + this.sceneWidth,
+      },
+      "<"
+    );
+    this.scrollTimeline.to(
+      this.scrollElements[1][2],
+      {
+        x: -this.scrollElements[1][2].clientWidth + this.sceneWidth,
+      },
+      "<"
+    );
   }
 
   /**

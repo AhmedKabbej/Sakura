@@ -95,6 +95,26 @@ body.blur-active *:not(#start-button):not(#start-button *) {
   max-height: 80%;
   border: 1px solid black;
   overflow: hidden;
+  position: relative;
+}
+
+.full-height{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+}
+
+.plan-1{
+  z-index: 30;
+}
+
+.plan-2{
+  z-index: 20;
+}
+
+.plan-3{
+  z-index: 10;
 }
 
 /* test */
