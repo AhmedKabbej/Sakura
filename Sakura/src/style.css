@@ -93,7 +93,7 @@ body.blur-active *:not(#start-button):not(#start-button *) {
   max-width: 80%;
   height: 1080px;
   max-height: 80%;
-  border: 1px solid black;
+  border: 6px double black;
   overflow: hidden;
   position: relative;
 }
