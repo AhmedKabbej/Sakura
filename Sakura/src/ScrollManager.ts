@@ -45,6 +45,10 @@ export class ScrollManager {
   // Other way to do what we want with scrollTrigger if there's an issue with the technique we're using now:
   // https://gsap.com/community/forums/topic/34434-pinning-inside-of-horizontal-scrolling/ -> the pinned slider goes against the horizontal scrolling animation (with a positive xPercent)
 
+  // Duration of the animations: duration of tweens is proportion within the global scrollTrigger
+  // https://gsap.com/community/forums/topic/24482-change-speed-of-scrolltrigger-animations-on-timeline/
+  // Duration of the global timeline depends on end parameter of ScrollTrigeer
+
   /**
    * Makes the link between scroll and the animation timeline & feeds the timeline its animations between each scenes and within each scenes
    */
@@ -54,7 +58,7 @@ export class ScrollManager {
       animation: this.scrollTimeline,
       pin: true,
       scrub: true,
-      end: window.innerWidth * this.frameContainers.length, // this affets the speed of the scroll
+      end: window.innerWidth * this.frameContainers.length, // this affects the speed of the scroll
     });
 
     this.frameContainers.forEach((_, idx) => {
@@ -131,7 +135,34 @@ export class ScrollManager {
    * adds to the scrollTrigger timeline all the animation happening during the focus on the third scene
    */
   scrollWithinFrameThree() {
-    //temporary code but also an example of how to play tweens simaltaenously
+    const sunElement = this.frameContainers[2].querySelector('.sun');
+    const scene3Foregreounds = this.frameContainers[2].querySelectorAll('.scene-3-foreground');
+    const fadeOutElement = this.frameContainers[2].querySelector('.fade-out') as HTMLElement;
+    scene3Foregreounds.forEach((img, index) => {
+      this.scrollTimeline.set(sunElement, {
+        rotateZ: '-20deg'
+      })
+      if (index > 0) {
+        this.scrollTimeline.to(fadeOutElement, {
+          background: 'rgba(0, 0, 0, 0)',
+          onComplete: () => {
+            fadeOutElement.style.background = "none"
+          }
+        })
+      };
+      this.scrollTimeline.to(sunElement, {
+        rotateZ: '-60deg'
+      })
+      .to(fadeOutElement, {
+        background: '#000',
+        onComplete: () => {
+          img.classList.add('hidden');
+          if (scene3Foregreounds.length >= index+1) {
+            scene3Foregreounds[index+1].classList.remove('hidden')
+          }
+        }
+      });
+    })
     this.scrollTimeline.to(this.scrollElements[2][0], {
       x: 300,
     });

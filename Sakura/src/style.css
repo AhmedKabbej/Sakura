@@ -117,6 +117,31 @@ body.blur-active *:not(#start-button):not(#start-button *) {
   z-index: 10;
 }
 
+.plan-0{
+  z-index: 40;
+}
+
+.sun{
+  position: absolute;
+  width: 250vw;
+  transform-origin: 0 100%;
+  bottom: -220vh;
+  left: 50%;
+  transform: rotateZ(-20deg);
+}
+
+.hidden{
+  display: none;
+}
+
+.full-screen{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 /* test */
 
 .red {
