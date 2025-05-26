@@ -122,15 +122,15 @@ body.blur-active *:not(#start-button):not(#start-button *) {
 }
 .plan-2-scene-1{
   height: 30%;
-  top: 20vh;
+  top: 25%;
 }
 .plan-3-scene-1{
   height: 20%;
-  top: 10vh;
+  top: 18%;
 }
 .plan-4-scene-1{
   height: 10%;
-
+top : 10%;
 }
 
 .sun{
