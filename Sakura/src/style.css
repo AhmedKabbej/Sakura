@@ -158,7 +158,25 @@ body.blur-active *:not(#start-button):not(#start-button *) {
   top: 50%;
   left: -10%;
 }
-
+.yohiro-scene-1{
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  opacity: 0;
+}
+.yohiro-transformation-scene-1{
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  opacity: 0;
+}
+/* scene 2 */
+.yohiro-scene-2{
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
+  z-index: 40;
+}
 .sun {
   position: absolute;
   width: 300%;

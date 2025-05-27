@@ -121,7 +121,22 @@ export class ScrollManager {
     },"<")
     this.addTextToTimeline('.text-4')
     this.addTextToTimeline('.text-5')
-
+    this.scrollTimeline.to(".plan-1-scene-1",{
+      opacity: 0,
+      duration: 2
+    })
+    this.scrollTimeline.to(".yohiro-transformation-scene-1",{
+      opacity: 1,
+      duration: 5
+    },"<")
+    this.scrollTimeline.to(".yohiro-transformation-scene-1",{
+      opacity: 0,
+      duration: 2
+    })
+    this.scrollTimeline.to(".yohiro-scene-1",{
+      opacity: 1,
+      duration: 5
+    },"<")
 
   }
 
@@ -135,6 +150,7 @@ export class ScrollManager {
       duration: 3
     })
   }
+
 
   /**
    * adds to the scrollTrigger timeline all the animation happening during the focus on the second scene
