@@ -10,6 +10,12 @@
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: "shanghai";
+  src: url("/shanghai.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
 body {
   margin: 0px;
   overflow-x: hidden;
@@ -108,7 +114,7 @@ body.blur-active *:not(#start-button):not(#start-button *) {
   left: 0;
   height: 100%;
 }
-
+/* scene 1 */
 .scene-1 {
   position: absolute
 }
@@ -177,6 +183,10 @@ body.blur-active *:not(#start-button):not(#start-button *) {
   bottom: 0px;
   z-index: 40;
 }
+.plan-2-fire{
+  z-index: 25;
+}
+/* scene 3 */
 .sun {
   position: absolute;
   width: 300%;
@@ -199,10 +209,10 @@ body.blur-active *:not(#start-button):not(#start-button *) {
 }
 
 .animated-text {
-  font-family: "B Barusan Lindu", sans-serif;
+  font-family: "shanghai", sans-serif;
   color: black;
   text-shadow: 2px 2px 4px rgb(154, 124, 102), 4px 4px 6px rgba(255, 255, 255, 0.5), -4px -4px 6px rgba(255, 255, 255, 0.5);
-  font-size: 64px;
+  font-size: 40px;
   /* width: 66%; */
   /* padding: 5vh; */
   margin: 0;
