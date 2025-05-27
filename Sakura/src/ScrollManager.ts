@@ -102,11 +102,13 @@ export class ScrollManager {
    */
   scrollWithinFrameOne() {
     //temporary code for testing
-    this.scrollElements[0].forEach((scrollEl) => {
-      this.scrollTimeline.to(scrollEl, {
-        x: 100,
-      });
-    });
+    // this.scrollElements[0].forEach((scrollEl) => {
+    //   this.scrollTimeline.to(scrollEl, {
+    //     x: -100,
+    //   });
+    // });
+
+    
   }
 
   /**
