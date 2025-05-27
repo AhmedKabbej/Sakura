@@ -3,19 +3,16 @@ import { ScrollManager } from "./ScrollManager";
 
 class Manager {
    
-    scrollManager : ScrollManager;
-
     constructor() {
         this.initIntro();
-        this.scrollManager = this.initScrollManager()
         document.addEventListener("completedIntro", () => {
-            this.initScrollManager().enableScroll();
+            this.initScrollManager()
         });
         this.initSoundManager();
     }
 
     initScrollManager() {
-        return new ScrollManager;
+        new ScrollManager;
     }
 
     initSoundManager() {
