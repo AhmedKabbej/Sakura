@@ -106,12 +106,21 @@ export class ScrollManager {
         x: 100,
       });
     });
+
+    // zoom
+    // Il y a fort longtemps, dans un Japon ravagé par les guerres, une forêt restait intacte, épargnée par les conflits. 
+    // Au cœur de cette forêt se trouvait un arbre solitaire qui ne fleurissait jamais, malgré sa vitalité apparente.
+    // fée 
+    // Attristée par son sort, une fée de la forêt lui proposa un enchantement : pendant 20 ans, il pourrait ressentir les émotions humaines et se transformer en homme à volonté. 
+    // Si, au terme de cette période, il ne parvenait pas à fleurir, il mourrait. // transformation en humain
   }
 
   /**
    * adds to the scrollTrigger timeline all the animation happening during the focus on the second scene
    */
   scrollWithinFrameTwo() {
+    const sceneText = this.frameContainers[1].querySelector('.animated-text') as HTMLElement
+    this.scrollTimeline.add(this.createSplitTextAnim(sceneText));
     this.scrollTimeline.to(this.scrollElements[1][0], {
       x: -this.scrollElements[1][0].clientWidth  + this.sceneWidth,
     });
@@ -205,7 +214,8 @@ export class ScrollManager {
       autoAlpha: 0,
       stagger: 0.1,
     });
-    return tween;
+
+    return tween; 
   }
 
     //*************************** ***************** ***************************\\

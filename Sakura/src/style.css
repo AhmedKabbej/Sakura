@@ -154,6 +154,18 @@ top : 10%;
   height: 100%;
 }
 
+.animated-text {
+  font-family: "B Barusan Lindu", sans-serif;
+  color: black;
+  text-shadow: 2px 2px 4px rgb(154, 124, 102), 4px 4px 6px rgba(255, 255, 255, 0.5), -4px -4px 6px rgba(255, 255, 255, 0.5); 
+  font-size: 64px;
+  width: 66%;
+  padding: 5vh;
+  margin: 0;
+  z-index: 100;
+  position: relative;
+}
+
 /* test */
 
 .red {

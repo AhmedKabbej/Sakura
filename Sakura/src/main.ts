@@ -4,12 +4,11 @@ import { ScrollManager } from "./ScrollManager";
 class Manager {
    
     constructor() {
-        
-        this.initIntro()
+        this.initIntro();
         document.addEventListener("completedIntro", () => {
             this.initScrollManager()
-        })
-        this.initSoundManager()        
+        });
+        this.initSoundManager();
     }
 
     initScrollManager() {
