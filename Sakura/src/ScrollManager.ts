@@ -111,14 +111,17 @@ export class ScrollManager {
    * adds to the scrollTrigger timeline all the animation happening during the focus on the first scene
    */
   scrollWithinFrameOne() {
-    //temporary code for testing
-    // this.scrollElements[0].forEach((scrollEl) => {
-    //   this.scrollTimeline.to(scrollEl, {
-    //     x: -100,
-    //   });
-    // });
-
-    
+    //zoom au tout debut
+    this.scrollTimeline.to(".zoom-in",{
+      scale : 1.5, 
+      stager:1, 
+      duration:0.1,
+    })
+    //au scroll le texte se lance + son
+    const sceneText = this.frameContainers[0].querySelector('.animated-text') as HTMLElement
+    this.scrollTimeline.add(this.createSplitTextAnim(sceneText));
+    //continue dans le scroll, la fée apparait
+    //
   }
 
   /**
@@ -128,7 +131,7 @@ export class ScrollManager {
     const sceneText = this.frameContainers[1].querySelector('.animated-text') as HTMLElement
     this.scrollTimeline.add(this.createSplitTextAnim(sceneText));
     this.scrollTimeline.to(this.scrollElements[1][0], {
-      x: -this.scrollElements[1][0].clientWidth  + this.sceneWidth,
+      x: -this.scrollElements[1][0].clientWidth + this.sceneWidth,
     });
     this.scrollTimeline.to(
       this.scrollElements[1][1],
@@ -168,15 +171,15 @@ export class ScrollManager {
       this.scrollTimeline.to(sunElement, {
         rotateZ: '-60deg'
       })
-      .to(fadeOutElement, {
-        background: '#000',
-        onComplete: () => {
-          img.classList.add('hidden');
-          if (scene3Foregreounds.length >= index+1) {
-            scene3Foregreounds[index+1].classList.remove('hidden')
+        .to(fadeOutElement, {
+          background: '#000',
+          onComplete: () => {
+            img.classList.add('hidden');
+            if (scene3Foregreounds.length >= index + 1) {
+              scene3Foregreounds[index + 1].classList.remove('hidden')
+            }
           }
-        }
-      });
+        });
     })
     this.scrollTimeline.to(this.scrollElements[2][0], {
       x: 300,
@@ -200,10 +203,10 @@ export class ScrollManager {
   /**
    * adds to the scrollTrigger timeline all the animation happening during the focus on the fourth scene
    */
-  scrollWithinFrameFour() {}
+  scrollWithinFrameFour() { }
 
-    //**************************** **************** ***************************\\
-   //**************************** Animations Factory ***************************\\
+  //**************************** **************** ***************************\\
+  //**************************** Animations Factory ***************************\\
   //****************************** **************** *****************************\\
 
   /**
@@ -224,8 +227,8 @@ export class ScrollManager {
     return tween; 
   }
 
-    //*************************** ***************** ***************************\\
-   //*************************** Lenis smooth scroll ***************************\\
+  //*************************** ***************** ***************************\\
+  //*************************** Lenis smooth scroll ***************************\\
   //***************************** ***************** *****************************\\
 
   /**
