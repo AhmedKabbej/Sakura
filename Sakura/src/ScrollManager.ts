@@ -101,19 +101,15 @@ export class ScrollManager {
    * adds to the scrollTrigger timeline all the animation happening during the focus on the first scene
    */
   scrollWithinFrameOne() {
-    //temporary code for testing
-    // this.scrollElements[0].forEach((scrollEl) => {
-    //   this.scrollTimeline.to(scrollEl, {
-    //     x: -100,
-    //   });
-    // });
     //zoom au tout debut
-    this.scrollTimeline.to("#zoom-in",{
+    this.scrollTimeline.to(".zoom-in",{
       scale : 1.5, 
       stager:1, 
       duration:0.1,
     })
     //au scroll le texte se lance + son
+    const sceneText = this.frameContainers[0].querySelector('.animated-text') as HTMLElement
+    this.scrollTimeline.add(this.createSplitTextAnim(sceneText));
     //continue dans le scroll, la fée apparait
     //
   }
