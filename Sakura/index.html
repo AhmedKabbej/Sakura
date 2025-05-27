@@ -6,10 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="src/style.css">
   <title>Sakura</title>
+  
 </head>
 
 <body>
-
+  
   <!-- INTRO -->
   <canvas id="burn-canvas"></canvas>
   <div id="start-button">
@@ -19,55 +20,55 @@
     <span>R</span>
     <span>T</span>
   </div>
- 
+
   <div id="main-container">
 
     <!-- FIRST SCENE -->
-      <div class="scene-container">
-        <div class="scene">
-          <!-- <div class="scene-element red"></div>
+    <div class="scene-container">
+      <div class="scene">
+        <!-- <div class="scene-element red"></div>
           <div class="scene-element blue"></div>
           <div class="scene-element yellow"></div> -->
-          <img src="/scene-1/premier-plan.png" class="scene-element full-height plan-1-scene-1"></img>
-          <img src="/scene-1/second-plan.png" class="scene-element full-height plan-2-scene-1"></img>
-          <img src="/scene-1/troisieme-plan.png" class="scene-element full-height plan-3-scene-1"></img>
-          <img src="/scene-1/quatrieme-plan.png" class="scene-element full-height plan-4-scene-1"></img>
-        </div>
+        <img src="/scene-1/premier-plan.png" class="scene-element scene-1 plan-1-scene-1"></img>
+        <img src="/scene-1/second-plan.png" class="scene-element scene-1 plan-2-scene-1"></img>
+        <img src="/scene-1/troisieme-plan.png" class="scene-element scene-1 plan-3-scene-1"></img>
+        <img src="/scene-1/quatrieme-plan.png" class="scene-element scene-1 plan-4-scene-1"></img>
       </div>
-
-      <!-- SECOND SCENE -->
-      <div class="scene-container">
-        <div class="scene">
-          <p class="animated-text">Sous forme humaine, l'arbre, se nommant Yohiro, "l'espoir", erra parmi les hommes, mais ne trouva que haine et désolation.</p>
-          <img src="/scene-2/premier-plan.png" class="scene-element full-height plan-1"></img>
-          <img src="/scene-2/second-plan.png" class="scene-element full-height plan-2"></img>
-          <img src="/scene-2/troisieme-plan.png" class="scene-element full-height plan-3"></img>
-        </div>
-      </div>
-
-      <!-- THIRD SCENE -->
-      <div class="scene-container">
-        <div class="scene">
-          <div class="plan-0 fade-out full-screen"></div>
-          <img src="/scene-3/sun.svg" class="scene-element plan-3 sun" alt="">
-          <img src="/scene-3/decor.png" class="scene-element full-height plan-2" alt="">
-          <img src="/scene-3/scene-3-1.png" class="scene-3-foreground scene-element full-height plan-1" alt="">
-          <img src="/scene-3/scene-3-2.png" class="scene-3-foreground scene-element full-height plan-1 hidden" alt="">
-          <img src="/scene-3/scene-3-3.png" class="scene-3-foreground scene-element full-height plan-1 hidden" alt="">
-          <img src="/scene-3/scene-3-4.png" class="scene-3-foreground scene-element full-height plan-1 hidden" alt="">
-        </div>
-      </div>
-
-      <!-- FOURTH SCENE + CREDITS -->
-       <div class="scene-container">
-        <div class="scene">
-          <div class="scene-element green"></div>
-          <div class="scene-element blue"></div>
-          <div class="scene-element yellow"></div>
-        </div>
-      </div>
-
     </div>
+
+    <!-- SECOND SCENE -->
+    <div class="scene-container">
+      <div class="scene">
+        <p class="animated-text">Sous forme humaine, l'arbre, se nommant Yohiro, "l'espoir", erra parmi les hommes, mais ne trouva que haine et désolation.</p>
+        <img src="/scene-2/premier-plan.png" class="scene-element full-height plan-1"></img>
+        <img src="/scene-2/second-plan.png" class="scene-element full-height plan-2"></img>
+        <img src="/scene-2/troisieme-plan.png" class="scene-element full-height plan-3"></img>
+      </div>
+    </div>
+
+    <!-- THIRD SCENE -->
+    <div class="scene-container">
+      <div class="scene">
+        <div class="plan-0 fade-out full-screen"></div>
+        <img src="/scene-3/sun.svg" class="scene-element plan-3 sun" alt="">
+        <img src="/scene-3/decor.png" class="scene-element full-height plan-2" alt="">
+        <img src="/scene-3/scene-3-1.png" class="scene-3-foreground scene-element full-height plan-1" alt="">
+        <img src="/scene-3/scene-3-2.png" class="scene-3-foreground scene-element full-height plan-1 hidden" alt="">
+        <img src="/scene-3/scene-3-3.png" class="scene-3-foreground scene-element full-height plan-1 hidden" alt="">
+        <img src="/scene-3/scene-3-4.png" class="scene-3-foreground scene-element full-height plan-1 hidden" alt="">
+      </div>
+    </div>
+
+    <!-- FOURTH SCENE + CREDITS -->
+    <div class="scene-container">
+      <div class="scene">
+        <div class="scene-element green"></div>
+        <div class="scene-element blue"></div>
+        <div class="scene-element yellow"></div>
+      </div>
+    </div>
+
+  </div>
 
   <!-- <div class="container-text"><p class="text">Il y a fort longtemps, dans un Japon ravagé par les guerres, une forêt restait intacte, épargnée par les conflits.</p></div> -->
   <script type="module" src="/src/main.ts"></script>

@@ -54,6 +54,7 @@ export class ScrollManager {
    */
   initScroll() {
     ScrollTrigger.create({
+      
       trigger: this.scrollContainer,
       animation: this.scrollTimeline,
       pin: true,
@@ -101,18 +102,13 @@ export class ScrollManager {
    */
   scrollWithinFrameOne() {
     //temporary code for testing
-    this.scrollElements[0].forEach((scrollEl) => {
-      this.scrollTimeline.to(scrollEl, {
-        x: 100,
-      });
-    });
+    // this.scrollElements[0].forEach((scrollEl) => {
+    //   this.scrollTimeline.to(scrollEl, {
+    //     x: -100,
+    //   });
+    // });
 
-    // zoom
-    // Il y a fort longtemps, dans un Japon ravagé par les guerres, une forêt restait intacte, épargnée par les conflits. 
-    // Au cœur de cette forêt se trouvait un arbre solitaire qui ne fleurissait jamais, malgré sa vitalité apparente.
-    // fée 
-    // Attristée par son sort, une fée de la forêt lui proposa un enchantement : pendant 20 ans, il pourrait ressentir les émotions humaines et se transformer en homme à volonté. 
-    // Si, au terme de cette période, il ne parvenait pas à fleurir, il mourrait. // transformation en humain
+    
   }
 
   /**
