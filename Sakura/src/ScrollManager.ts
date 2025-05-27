@@ -4,16 +4,18 @@ import { SplitText } from "gsap/SplitText";
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 import Lenis from "lenis";
+import { MusicManager } from "./MusicManager";
 
 export class ScrollManager {
   scrollContainer: HTMLElement; //contains all the scenes, the horizontal scrolling is in it
   frameContainers: NodeListOf<HTMLElement>; //the individual scenes containers
   scrollElements: { [index: number]: NodeListOf<HTMLElement> } = {}; //the individual scenes containers and the element within
   sceneWidth : number;
+  musicManager: MusicManager
 
   scrollTimeline: GSAPTimeline; //the timeline that plays with the scroll
 
-  constructor() {
+  constructor(musicManager: MusicManager) {
     // get HTMLElements
     this.scrollContainer = document.querySelector(
       "#main-container"
@@ -27,6 +29,8 @@ export class ScrollManager {
       ) as NodeListOf<HTMLElement>;
     });
     this.sceneWidth = (document.querySelector(".scene") as HTMLElement).clientWidth
+
+    this.musicManager = musicManager
 
     // init scrollTrigger & its timeline
     this.scrollTimeline = gsap.timeline();
@@ -53,12 +57,12 @@ export class ScrollManager {
    * Makes the link between scroll and the animation timeline & feeds the timeline its animations between each scenes and within each scenes
    */
   initScroll() {
-    ScrollTrigger.create({
-      
+    ScrollTrigger.create({  
       trigger: this.scrollContainer,
       animation: this.scrollTimeline,
       pin: true,
       scrub: true,
+      // onUpdate: () => { console.log(st.progress)},
       end: window.innerWidth * this.frameContainers.length, // this affects the speed of the scroll
     });
 
@@ -115,9 +119,19 @@ export class ScrollManager {
    * adds to the scrollTrigger timeline all the animation happening during the focus on the second scene
    */
   scrollWithinFrameTwo() {
-    this.scrollTimeline.to(this.scrollElements[1][0], {
+    const tween = gsap.to(this.scrollElements[1][0], {
       x: -this.scrollElements[1][0].clientWidth  + this.sceneWidth,
+      onStart: () => {
+        
+      },
+      onUpdate: () => {
+        console.log(tween.progress())
+        if (tween.progress() > 0.5) {
+          this.musicManager.sounds.angelical.play()
+        } 
+      }
     });
+    this.scrollTimeline.add(tween);
     this.scrollTimeline.to(
       this.scrollElements[1][1],
       {
@@ -150,6 +164,7 @@ export class ScrollManager {
           background: 'rgba(0, 0, 0, 0)',
           onComplete: () => {
             fadeOutElement.style.background = "none"
+
           }
         })
       };
