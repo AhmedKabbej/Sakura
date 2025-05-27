@@ -126,7 +126,7 @@ body.blur-active *:not(#start-button):not(#start-button *) {
 }
 
 .plan-0 {
-  z-index: 40;
+  z-index: 110;
 }
 
 .plan-1-scene-1 {
@@ -205,6 +205,11 @@ body.blur-active *:not(#start-button):not(#start-button *) {
   height: 50%;
   top: 30%;
   left: -30%;
+}
+
+.fade-out {
+  background-color: black;
+  opacity: 0;
 }
 
 .fade-out-pink {
