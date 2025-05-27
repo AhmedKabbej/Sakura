@@ -1,27 +1,31 @@
 import { Intro } from "./intro.ts";
 import { ScrollManager } from "./ScrollManager";
+import { MusicManager } from "./MusicManager.ts";
 
 class Manager {
+    musicManager: MusicManager;
    
     constructor() {
-        this.initIntro();
+        
+        this.initMusicManager()      
+        this.initIntro()
         document.addEventListener("completedIntro", () => {
             this.initScrollManager()
-        });
-        this.initSoundManager();
+        })
     }
 
     initScrollManager() {
-        new ScrollManager;
+        new ScrollManager(this.musicManager);
     }
 
-    initSoundManager() {
-        //probably going to have a class for that
+    initMusicManager(){
+        console.log("init music manager")
+        this.musicManager = new MusicManager();
     }
-
+      
     initIntro(){
-     new Intro()
-    }
+        new Intro(this.musicManager)
+       }
 }
 
 

@@ -1,6 +1,7 @@
 import { createNoise3D } from "simplex-noise";
 
 import imgUrl from '/intro-screen.png'
+import { MusicManager } from "./MusicManager";
 
 export class Intro {
     canvas: HTMLCanvasElement;
@@ -31,8 +32,11 @@ export class Intro {
     y: number | undefined;
     newWidth!: number;
     newHeight!: number;
+    musicManager: MusicManager;
 
-    constructor() {
+    constructor(musicManager: MusicManager) {
+        this.musicManager = musicManager
+        console.log(this.musicManager)
         this.canvas = document.getElementById("burn-canvas") as HTMLCanvasElement;
         this.startButton = document.getElementById("start-button") as HTMLElement;
         this.ctx = this.canvas.getContext("2d", { alpha: true }) as CanvasRenderingContext2D;
@@ -90,6 +94,7 @@ export class Intro {
         });
 
         this.startButton.addEventListener("click", () => {
+            // this.musicManager.sound.play()
             document.body.classList.remove("blur-active");
             this.startButton.classList.add("decrease-opacity");
 
