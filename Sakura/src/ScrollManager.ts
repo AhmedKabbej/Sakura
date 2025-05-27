@@ -59,7 +59,7 @@ export class ScrollManager {
       animation: this.scrollTimeline,
       pin: true,
       scrub: true,
-      end: window.innerWidth * this.frameContainers.length, // this affects the speed of the scroll
+      end: window.innerWidth * this.frameContainers.length *5, // this affects the speed of the scroll
     });
 
     this.frameContainers.forEach((_, idx) => {
@@ -101,54 +101,36 @@ export class ScrollManager {
    * adds to the scrollTrigger timeline all the animation happening during the focus on the first scene
    */
   scrollWithinFrameOne() {
-    //au scroll le texte se lance + son
-    const sceneText = this.frameContainers[0].querySelector('.animated-text') as HTMLElement
-    this.scrollTimeline.add(this.createSplitTextAnim(sceneText));
 
+    this.addTextToTimeline('.text-1')
     //zoom au tout debut
     this.scrollTimeline.to(".zoom-in", {
       scale: 1.5,
       stager: 1,
-      duration: 0.1
-    })
-
-    //texte qui part vers le bas
-    this.scrollTimeline.to(".text-1", {
-      y: 1000,
       duration: 2
-    })
-    //texte qui apparait
-    const sceneText2 = this.frameContainers[0].querySelector('.text-2') as HTMLElement
-    this.scrollTimeline.add(this.createSplitTextAnim(sceneText2));
-
-    //texte qui part vers le bas
-    this.scrollTimeline.to(".text-2", {
-      y: 1000,
-      duration: 5
-    })
+    },"<")
+    this.addTextToTimeline('.text-2')
+    this.addTextToTimeline('.text-3')
     //fée qui apparait
     this.scrollTimeline.to(".fee-scene-1", {
       x: 400,
+      duration: 2
+    },"<")
+    this.addTextToTimeline('.text-4')
+    this.addTextToTimeline('.text-5')
+
+
+  }
+
+  addTextToTimeline(selector:string){
+    //text qui apparait
+    const sceneText = this.frameContainers[0].querySelector(selector) as HTMLElement
+    this.scrollTimeline.add(this.createSplitTextAnim(sceneText));
+    //texte qui part vers le bas
+    this.scrollTimeline.to(selector, {
+      y: 400,
       duration: 3
     })
-    //text qui apparait
-    const sceneText3 = this.frameContainers[0].querySelector('.text-3') as HTMLElement
-    this.scrollTimeline.add(this.createSplitTextAnim(sceneText3), "<");
-    //texte qui part vers le bas
-    this.scrollTimeline.to(".text-3", {
-      y: 1000,
-      duration: 5
-    })
-    //text qui apparait
-    const sceneText4 = this.frameContainers[0].querySelector('.text-4') as HTMLElement
-    this.scrollTimeline.add(this.createSplitTextAnim(sceneText4));
-    //texte qui part vers le bas
-    this.scrollTimeline.to(".text-4", {
-      y: 1000,
-      duration: 5
-    })
-
-
   }
 
   /**
