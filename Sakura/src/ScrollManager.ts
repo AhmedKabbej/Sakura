@@ -39,8 +39,8 @@ export class ScrollManager {
     this.initLenis();
   }
 
-    //************************ *********************** ************************\\
-   //************************ Scroll Trigger & timeline ************************\\
+  //************************ *********************** ************************\\
+  //************************ Scroll Trigger & timeline ************************\\
   //************************** *********************** **************************\\
 
   // Reference for the scrollTrigger:
@@ -105,20 +105,62 @@ export class ScrollManager {
    * adds to the scrollTrigger timeline all the animation happening during the focus on the first scene
    */
   scrollWithinFrameOne() {
-    //temporary code for testing
-    // this.scrollElements[0].forEach((scrollEl) => {
-    //   this.scrollTimeline.to(scrollEl, {
-    //     x: -100,
-    //   });
-    // });
+    //au scroll le texte se lance + son
+    const sceneText = this.frameContainers[0].querySelector('.animated-text') as HTMLElement
+    this.scrollTimeline.add(this.createSplitTextAnim(sceneText));
 
-    
+    //zoom au tout debut
+    this.scrollTimeline.to(".zoom-in", {
+      scale: 1.5,
+      stager: 1,
+      duration: 0.1
+    })
+
+    //texte qui part vers le bas
+    this.scrollTimeline.to(".text-1", {
+      y: 1000,
+      duration: 2
+    })
+    //texte qui apparait
+    const sceneText2 = this.frameContainers[0].querySelector('.text-2') as HTMLElement
+    this.scrollTimeline.add(this.createSplitTextAnim(sceneText2));
+
+    //texte qui part vers le bas
+    this.scrollTimeline.to(".text-2", {
+      y: 1000,
+      duration: 5
+    })
+    //fée qui apparait
+    this.scrollTimeline.to(".fee-scene-1", {
+      x: 400,
+      duration: 3
+    })
+    //text qui apparait
+    const sceneText3 = this.frameContainers[0].querySelector('.text-3') as HTMLElement
+    this.scrollTimeline.add(this.createSplitTextAnim(sceneText3), "<");
+    //texte qui part vers le bas
+    this.scrollTimeline.to(".text-3", {
+      y: 1000,
+      duration: 5
+    })
+    //text qui apparait
+    const sceneText4 = this.frameContainers[0].querySelector('.text-4') as HTMLElement
+    this.scrollTimeline.add(this.createSplitTextAnim(sceneText4));
+    //texte qui part vers le bas
+    this.scrollTimeline.to(".text-4", {
+      y: 1000,
+      duration: 5
+    })
+
+
   }
 
   /**
    * adds to the scrollTrigger timeline all the animation happening during the focus on the second scene
    */
   scrollWithinFrameTwo() {
+    const sceneText = this.frameContainers[1].querySelector('.animated-text') as HTMLElement
+    this.scrollTimeline.add(this.createSplitTextAnim(sceneText));
     const tween = gsap.to(this.scrollElements[1][0], {
       x: -this.scrollElements[1][0].clientWidth  + this.sceneWidth,
       onStart: () => {
@@ -171,15 +213,15 @@ export class ScrollManager {
       this.scrollTimeline.to(sunElement, {
         rotateZ: '-60deg'
       })
-      .to(fadeOutElement, {
-        background: '#000',
-        onComplete: () => {
-          img.classList.add('hidden');
-          if (scene3Foregreounds.length >= index+1) {
-            scene3Foregreounds[index+1].classList.remove('hidden')
+        .to(fadeOutElement, {
+          background: '#000',
+          onComplete: () => {
+            img.classList.add('hidden');
+            if (scene3Foregreounds.length >= index + 1) {
+              scene3Foregreounds[index + 1].classList.remove('hidden')
+            }
           }
-        }
-      });
+        });
     })
     this.scrollTimeline.to(this.scrollElements[2][0], {
       x: 300,
@@ -203,10 +245,10 @@ export class ScrollManager {
   /**
    * adds to the scrollTrigger timeline all the animation happening during the focus on the fourth scene
    */
-  scrollWithinFrameFour() {}
+  scrollWithinFrameFour() { }
 
-    //**************************** **************** ***************************\\
-   //**************************** Animations Factory ***************************\\
+  //**************************** **************** ***************************\\
+  //**************************** Animations Factory ***************************\\
   //****************************** **************** *****************************\\
 
   /**
@@ -215,6 +257,9 @@ export class ScrollManager {
    * @returns the animation to be added to a timeline or played
    */
   createSplitTextAnim(element: HTMLElement) {
+    gsap.set(element, {
+      opacity: 1
+    })
     const split = SplitText.create(element, {
       type: "words",
     });
@@ -223,11 +268,12 @@ export class ScrollManager {
       autoAlpha: 0,
       stagger: 0.1,
     });
+
     return tween;
   }
 
-    //*************************** ***************** ***************************\\
-   //*************************** Lenis smooth scroll ***************************\\
+  //*************************** ***************** ***************************\\
+  //*************************** Lenis smooth scroll ***************************\\
   //***************************** ***************** *****************************\\
 
   /**
