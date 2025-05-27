@@ -120,7 +120,6 @@ export class ScrollManager {
       duration: 2
     },"<")
     this.addTextToTimeline('.text-4')
-    this.addTextToTimeline('.text-5')
     this.scrollTimeline.to(".plan-1-scene-1",{
       opacity: 0,
       duration: 2
@@ -135,8 +134,10 @@ export class ScrollManager {
     })
     this.scrollTimeline.to(".yohiro-scene-1",{
       opacity: 1,
-      duration: 5
+      duration: 2
     },"<")
+    this.addTextToTimeline('.text-5')
+
 
   }
 
