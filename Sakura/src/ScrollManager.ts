@@ -54,6 +54,7 @@ export class ScrollManager {
    */
   initScroll() {
     ScrollTrigger.create({
+      
       trigger: this.scrollContainer,
       animation: this.scrollTimeline,
       pin: true,
@@ -121,6 +122,8 @@ export class ScrollManager {
    * adds to the scrollTrigger timeline all the animation happening during the focus on the second scene
    */
   scrollWithinFrameTwo() {
+    const sceneText = this.frameContainers[1].querySelector('.animated-text') as HTMLElement
+    this.scrollTimeline.add(this.createSplitTextAnim(sceneText));
     this.scrollTimeline.to(this.scrollElements[1][0], {
       x: -this.scrollElements[1][0].clientWidth + this.sceneWidth,
     });
@@ -214,7 +217,8 @@ export class ScrollManager {
       autoAlpha: 0,
       stagger: 0.1,
     });
-    return tween;
+
+    return tween; 
   }
 
   //*************************** ***************** ***************************\\
