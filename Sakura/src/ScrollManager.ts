@@ -110,8 +110,7 @@ export class ScrollManager {
     //au scroll le texte se lance + son
     const sceneText = this.frameContainers[0].querySelector('.animated-text') as HTMLElement
     this.scrollTimeline.add(this.createSplitTextAnim(sceneText));
-    //continue dans le scroll, la fée apparait
-    //
+    //continue dans le scroll, la fée apparait par la gauche 
   }
 
   /**

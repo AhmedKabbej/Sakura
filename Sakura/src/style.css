@@ -140,6 +140,12 @@ body.blur-active *:not(#start-button):not(#start-button *) {
   height: 10%;
 top : 10%;
 }
+.fee-scene-1{
+  position: relative;
+    width: 10%;
+    z-index: 1;
+    left: -10%;
+}
 
 .sun{
   position: absolute;
