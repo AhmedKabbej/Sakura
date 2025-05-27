@@ -211,7 +211,7 @@ body.blur-active *:not(#start-button):not(#start-button *) {
 .animated-text {
   font-family: "shanghai", sans-serif;
   color: black;
-  text-shadow: 2px 2px 4px rgb(154, 124, 102), 4px 4px 6px rgba(255, 255, 255, 0.5), -4px -4px 6px rgba(255, 255, 255, 0.5);
+  text-shadow: 2px 2px 4px rgb(255, 255, 255), 4px 4px 6px rgba(255, 255, 255, 0.5), -4px -4px 6px rgba(255, 255, 255, 0.5);
   font-size: 40px;
   /* width: 66%; */
   /* padding: 5vh; */
