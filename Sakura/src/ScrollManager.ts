@@ -105,15 +105,15 @@ export class ScrollManager {
    */
   scrollWithinFrameOne() {
 
-    this.addTextToTimeline('.text-1')
+    this.addTextAnimToTimelineForSelector('.text-1', 0)
     //zoom au tout debut
     this.scrollTimeline.to(".zoom-in", {
       scale: 1.5,
       stager: 1,
       duration: 2
     },"<")
-    this.addTextToTimeline('.text-2')
-    this.addTextToTimeline('.text-3')
+    this.addTextAnimToTimelineForSelector('.text-2', 0)
+    this.addTextAnimToTimelineForSelector('.text-3', 0)
     //fée qui apparait
     this.scrollTimeline.to(".fee-scene-1", {
       x: 400,
@@ -192,51 +192,44 @@ export class ScrollManager {
    */
   scrollWithinFrameThree() {
     const sunElement = this.frameContainers[2].querySelector('.sun');
-    const scene3Foregreounds = this.frameContainers[2].querySelectorAll('.scene-3-foreground');
     const fadeOutElement = this.frameContainers[2].querySelector('.fade-out') as HTMLElement;
-    scene3Foregreounds.forEach((img, index) => {
-      this.scrollTimeline.set(sunElement, {
-        rotateZ: '-20deg'
-      })
-      if (index > 0) {
-        this.scrollTimeline.to(fadeOutElement, {
-          background: 'rgba(0, 0, 0, 0)',
-          onComplete: () => {
-            fadeOutElement.style.background = "none"
+    const scene3Foregreounds = this.frameContainers[2].querySelectorAll('.scene-3-foreground');
+    const scene3Texts = this.frameContainers[2].querySelectorAll('.animated-text') as NodeListOf<HTMLParagraphElement>;
+    // Un jour, il rencontra Sakura, une jeune femme bienveillante. 
+    // Ils devinrent amis, partageant des moments de complicité.
+    // Les jours passèrent et Yohiro tomba amoureux d'elle
+    // Un jour, il confessa ses sentiments et lui révéla sa véritable nature. Sakura ne dit rien.
 
-          }
+    scene3Foregreounds.forEach((img, index) => {
+      if (index > 0) {
+        // put sun back to the right
+        this.scrollTimeline.set(sunElement, {
+          rotateZ: '-20deg'
+        })
+        // black box back to transparent
+        this.scrollTimeline.to(fadeOutElement, {
+          opacity: 0
         })
       };
+      // sun revoluytion \o/
       this.scrollTimeline.to(sunElement, {
-        rotateZ: '-60deg'
+        rotateZ: '-60deg',
+        duration: 3
       })
-        .to(fadeOutElement, {
-          background: '#000',
+      //text anim
+      .add(this.createSplitTextAnim(scene3Texts[index]), "<")
+      // black box appears (it's night time go to sleep and stop coding, also take a shower u nerd)
+      .to(fadeOutElement, {
+        opacity: 1,
           onComplete: () => {
+            // hide the current img and text and show the next day's img
             img.classList.add('hidden');
-            if (scene3Foregreounds.length >= index + 1) {
-              scene3Foregreounds[index + 1].classList.remove('hidden')
-            }
+            scene3Texts[index].classList.add('hidden')
+            if (index + 1 >= scene3Foregreounds.length) { return; }
+            scene3Foregreounds[index + 1].classList.remove('hidden')
           }
         });
     })
-    this.scrollTimeline.to(this.scrollElements[2][0], {
-      x: 300,
-    });
-    this.scrollTimeline.to(
-      this.scrollElements[2][1],
-      {
-        x: 500,
-      },
-      "<"
-    );
-    this.scrollTimeline.to(
-      this.scrollElements[2][2],
-      {
-        x: 800,
-      },
-      "<"
-    );
   }
 
   /**
@@ -251,35 +244,29 @@ export class ScrollManager {
     const charasEl = this.frameContainers[3].querySelector('#scene4-charas-confession');
     const treeEl = this.frameContainers[3].querySelector('#scene4-sakura-tree');
 
-    textElements.forEach((txtEl, i) => {
-      this.addTextAnimToTimeline(txtEl)
-      if (i==1) {
-        //La fée apparaît
-        this.scrollTimeline.to(fairyEl, {
-          x: 600,
-          duration: 1.5
-        },"<")
-      }
-      if (i==2) {
-        this.scrollTimeline.to(fadeToPink, {
-          opacity: 1,
-          duration: 2,
-          onComplete: () => {
-            charasEl?.classList.add('hidden')
-            treeEl?.classList.remove('hidden')
-            fairyEl?.classList.add('hidden')
-          }
-        },"<")
-        this.scrollTimeline.to(fadeToPink, {
-          opacity: 0,
-          duration: 2
-        })
+    this.addTextAnimToTimeline(textElements[0])
 
+    this.addTextAnimToTimeline(textElements[1])
+    //La fée apparaît
+    this.scrollTimeline.to(fairyEl, {
+      x: 600,
+      duration: 1.5
+    },"<")
+
+    this.addTextAnimToTimeline(textElements[2])
+    this.scrollTimeline.to(fadeToPink, {
+      opacity: 1,
+      duration: 2,
+      onComplete: () => {
+          charasEl?.classList.add('hidden')
+          treeEl?.classList.remove('hidden')
+          fairyEl?.classList.add('hidden')
       }
+    },"<")
+    this.scrollTimeline.to(fadeToPink, {
+      opacity: 0,
+      duration: 2
     })
-    //Alors que le temps de l'enchantement touchait à sa fin, Sakura, émue, déclara son amour pour Yohiro. 
-    //La fée apparut et offrit à Sakura le choix de rester humaine ou de devenir un arbre pour rester avec Yohiro. // La fée apparaît
-    //Sakura choisit de devenir un arbre, et ensemble, ils ne firent plus qu'un. L'arbre fleurit alors magnifiquement, symbolisant leur amour éternel. // Arbre
   }
 
     //**************************** **************** ***************************\\
@@ -305,6 +292,12 @@ export class ScrollManager {
     });
 
     return tween;
+  }
+
+  addTextAnimToTimelineForSelector(selector:string, sceneId: number) {
+    //text qui apparait
+    const sceneText = this.frameContainers[sceneId].querySelector(selector) as HTMLElement
+    this.addTextAnimToTimeline(sceneText)
   }
 
   addTextAnimToTimeline(el:HTMLElement){
