@@ -9,7 +9,7 @@ export class ScrollManager {
   scrollContainer: HTMLElement; //contains all the scenes, the horizontal scrolling is in it
   frameContainers: NodeListOf<HTMLElement>; //the individual scenes containers
   scrollElements: { [index: number]: NodeListOf<HTMLElement> } = {}; //the individual scenes containers and the element within
-  sceneWidth : number;
+  sceneWidth: number;
 
   scrollTimeline: GSAPTimeline; //the timeline that plays with the scroll
 
@@ -35,8 +35,8 @@ export class ScrollManager {
     this.initLenis();
   }
 
-    //************************ *********************** ************************\\
-   //************************ Scroll Trigger & timeline ************************\\
+  //************************ *********************** ************************\\
+  //************************ Scroll Trigger & timeline ************************\\
   //************************** *********************** **************************\\
 
   // Reference for the scrollTrigger:
@@ -54,7 +54,7 @@ export class ScrollManager {
    */
   initScroll() {
     ScrollTrigger.create({
-      
+
       trigger: this.scrollContainer,
       animation: this.scrollTimeline,
       pin: true,
@@ -101,16 +101,54 @@ export class ScrollManager {
    * adds to the scrollTrigger timeline all the animation happening during the focus on the first scene
    */
   scrollWithinFrameOne() {
-    //zoom au tout debut
-    this.scrollTimeline.to(".zoom-in",{
-      scale : 1.5, 
-      stager:1, 
-      duration:0.1,
-    })
     //au scroll le texte se lance + son
     const sceneText = this.frameContainers[0].querySelector('.animated-text') as HTMLElement
     this.scrollTimeline.add(this.createSplitTextAnim(sceneText));
-    //continue dans le scroll, la fée apparait par la gauche 
+
+    //zoom au tout debut
+    this.scrollTimeline.to(".zoom-in", {
+      scale: 1.5,
+      stager: 1,
+      duration: 0.1
+    })
+
+    //texte qui part vers le bas
+    this.scrollTimeline.to(".text-1", {
+      y: 1000,
+      duration: 2
+    })
+    //texte qui apparait
+    const sceneText2 = this.frameContainers[0].querySelector('.text-2') as HTMLElement
+    this.scrollTimeline.add(this.createSplitTextAnim(sceneText2));
+
+    //texte qui part vers le bas
+    this.scrollTimeline.to(".text-2", {
+      y: 1000,
+      duration: 5
+    })
+    //fée qui apparait
+    this.scrollTimeline.to(".fee-scene-1", {
+      x: 400,
+      duration: 3
+    })
+    //text qui apparait
+    const sceneText3 = this.frameContainers[0].querySelector('.text-3') as HTMLElement
+    this.scrollTimeline.add(this.createSplitTextAnim(sceneText3), "<");
+    //texte qui part vers le bas
+    this.scrollTimeline.to(".text-3", {
+      y: 1000,
+      duration: 5
+    })
+    //text qui apparait
+    const sceneText4 = this.frameContainers[0].querySelector('.text-4') as HTMLElement
+    this.scrollTimeline.add(this.createSplitTextAnim(sceneText4));
+    //texte qui part vers le bas
+    this.scrollTimeline.to(".text-4", {
+      y: 1000,
+      duration: 5
+    })
+
+
   }
 
   /**
@@ -216,7 +254,7 @@ export class ScrollManager {
       stagger: 0.1,
     });
 
-    return tween; 
+    return tween;
   }
 
   //*************************** ***************** ***************************\\
