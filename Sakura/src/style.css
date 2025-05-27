@@ -130,14 +130,14 @@ body.blur-active *:not(#start-button):not(#start-button *) {
 }
 
 .plan-1-scene-1 {
-  bottom: 35%;
+  bottom: 30%;
   z-index: 1;
   left: 20%;
   width: 60%;
 }
 
 .plan-2-scene-1 {
-  height: 30%;
+  height: 35%;
   top: 20%;
 }
 
@@ -147,7 +147,7 @@ body.blur-active *:not(#start-button):not(#start-button *) {
 }
 
 .plan-4-scene-1 {
-  height: 10%;
+  height: 20%;
   top: 10%;
 }
 
