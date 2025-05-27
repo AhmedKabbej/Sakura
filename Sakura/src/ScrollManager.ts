@@ -204,6 +204,9 @@ export class ScrollManager {
    * @returns the animation to be added to a timeline or played
    */
   createSplitTextAnim(element: HTMLElement) {
+    gsap.set(element, {
+      opacity: 1
+    })
     const split = SplitText.create(element, {
       type: "words",
     });
