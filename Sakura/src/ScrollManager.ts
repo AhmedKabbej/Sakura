@@ -226,10 +226,48 @@ export class ScrollManager {
   /**
    * adds to the scrollTrigger timeline all the animation happening during the focus on the fourth scene
    */
-  scrollWithinFrameFour() { }
+  scrollWithinFrameFour() {
 
-  //**************************** **************** ***************************\\
-  //**************************** Animations Factory ***************************\\
+    const textElements = this.frameContainers[3].querySelectorAll('.animated-text') as NodeListOf<HTMLElement>;
+
+    const fairyEl = this.frameContainers[3].querySelector('#fee-scene-4');
+    const fadeToPink = this.frameContainers[3].querySelector('.fade-out-pink');
+    const charasEl = this.frameContainers[3].querySelector('#scene4-charas-confession');
+    const treeEl = this.frameContainers[3].querySelector('#scene4-sakura-tree');
+
+    textElements.forEach((txtEl, i) => {
+      this.addTextAnimToTimeline(txtEl)
+      if (i==1) {
+        //La fée apparaît
+        this.scrollTimeline.to(fairyEl, {
+          x: 600,
+          duration: 1.5
+        },"<")
+      }
+      if (i==2) {
+        this.scrollTimeline.to(fadeToPink, {
+          opacity: 1,
+          duration: 2,
+          onComplete: () => {
+            charasEl?.classList.add('hidden')
+            treeEl?.classList.remove('hidden')
+            fairyEl?.classList.add('hidden')
+          }
+        },"<")
+        this.scrollTimeline.to(fadeToPink, {
+          opacity: 0,
+          duration: 2
+        })
+
+      }
+    })
+    //Alors que le temps de l'enchantement touchait à sa fin, Sakura, émue, déclara son amour pour Yohiro. 
+    //La fée apparut et offrit à Sakura le choix de rester humaine ou de devenir un arbre pour rester avec Yohiro. // La fée apparaît
+    //Sakura choisit de devenir un arbre, et ensemble, ils ne firent plus qu'un. L'arbre fleurit alors magnifiquement, symbolisant leur amour éternel. // Arbre
+  }
+
+    //**************************** **************** ***************************\\
+   //**************************** Animations Factory ***************************\\
   //****************************** **************** *****************************\\
 
   /**
@@ -251,6 +289,16 @@ export class ScrollManager {
     });
 
     return tween;
+  }
+
+  addTextAnimToTimeline(el:HTMLElement){
+    //text qui apparait
+    this.scrollTimeline.add(this.createSplitTextAnim(el));
+    //texte qui part vers le bas
+    this.scrollTimeline.to(el, {
+      y: 400,
+      duration: 3
+    })
   }
 
   //*************************** ***************** ***************************\\

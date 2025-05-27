@@ -196,28 +196,28 @@ body.blur-active *:not(#start-button):not(#start-button *) {
   opacity: 0;
 }
 
-/* test */
-
-.red {
-  width: 100px;
-  height: 100px;
-  background-color: red;
+#scene4-charas-confession{
+  position: absolute;
+  left: -23%;
+  top: 10%;
 }
 
-.blue {
-  width: 100px;
-  height: 100px;
-  background-color: blue;
+#fee-scene-4 {
+  position: relative;
+  height: 50%;
+  top: 30%;
+  left: -30%;
 }
 
-.yellow {
-  width: 100px;
-  height: 100px;
-  background-color: yellow;
+.fade-out-pink {
+  background-color: pink;
+  opacity: 0;
 }
 
-.green {
-  width: 100px;
-  height: 100px;
-  background-color: green;
+#scene4-sakura-tree {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 100%;
 }
