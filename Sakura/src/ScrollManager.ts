@@ -10,6 +10,7 @@ export class ScrollManager {
   frameContainers: NodeListOf<HTMLElement>; //the individual scenes containers
   scrollElements: { [index: number]: NodeListOf<HTMLElement> } = {}; //the individual scenes containers and the element within
   sceneWidth : number;
+  scrollTrigger: ScrollTrigger;
 
   scrollTimeline: GSAPTimeline; //the timeline that plays with the scroll
 
@@ -35,6 +36,14 @@ export class ScrollManager {
     this.initLenis();
   }
 
+  enableScroll() {
+    this.scrollTrigger.enable()
+  }
+
+  disableScroll() {
+    this.scrollTrigger.enable()
+  }
+
     //************************ *********************** ************************\\
    //************************ Scroll Trigger & timeline ************************\\
   //************************** *********************** **************************\\
@@ -53,7 +62,7 @@ export class ScrollManager {
    * Makes the link between scroll and the animation timeline & feeds the timeline its animations between each scenes and within each scenes
    */
   initScroll() {
-    ScrollTrigger.create({
+    this.scrollTrigger = ScrollTrigger.create({
       
       trigger: this.scrollContainer,
       animation: this.scrollTimeline,
@@ -61,6 +70,7 @@ export class ScrollManager {
       scrub: true,
       end: window.innerWidth * this.frameContainers.length, // this affects the speed of the scroll
     });
+    this.disableScroll();
 
     this.frameContainers.forEach((_, idx) => {
       this.scrollWithin(idx);
