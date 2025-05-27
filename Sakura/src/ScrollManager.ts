@@ -54,6 +54,7 @@ export class ScrollManager {
    */
   initScroll() {
     ScrollTrigger.create({
+      
       trigger: this.scrollContainer,
       animation: this.scrollTimeline,
       pin: true,
