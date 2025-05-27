@@ -78,7 +78,6 @@ body.blur-active *:not(#start-button):not(#start-button *) {
 }
 
 .scene-container {
-  /*screen size should be 1920x1080*/
   width: 100vw;
   height: 100vh;
   flex-shrink: 0;
@@ -95,10 +94,9 @@ body.blur-active *:not(#start-button):not(#start-button *) {
 }
 
 .scene {
+  aspect-ratio: 16/9;
   width: 1920px;
   max-width: 80%;
-  height: 1080px;
-  max-height: 80%;
   border: 6px double black;
   overflow: hidden;
   position: relative;
@@ -163,9 +161,9 @@ body.blur-active *:not(#start-button):not(#start-button *) {
 
 .sun {
   position: absolute;
-  width: 250vw;
+  width: 300%;
   transform-origin: 0 100%;
-  bottom: -220vh;
+  bottom: -290%;
   left: 50%;
   transform: rotateZ(-20deg);
 }
