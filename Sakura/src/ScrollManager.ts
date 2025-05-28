@@ -290,34 +290,15 @@ export class ScrollManager {
     const transformationFrames = this.frameContainers[3].querySelectorAll('.transformation-anim') as NodeListOf<HTMLElement>;
     this.transfromationAnim(transformationFrames, () => {
       //MONTAGE AUDIO
-      console.log("wassup")
       this.musicManager.sounds.magic1.stop()
       this.musicManager.sounds.main.stop()
       this.musicManager.sounds.main2.play()
       //MONTAGE AUDIO
     });
-
-    //MONTAGE AUDIO
-    // onStart: () => {
-    //   this.musicManager.sounds.magic1.play()
-    // },
-    // onUpdate: () => {
-    //   if (magic1tween.progress() < 0.1 || magic1tween.progress() > 0.9) {
-    //     this.musicManager.sounds.magic1.stop()
-    //     this.musicManager.sounds.main.stop()
-
-    //     this.musicManager.sounds.main2.play()
-
-    //   }
-    //   else if (magic1tween.progress() > 0.5) {
-    //     this.musicManager.sounds.magic1.play()
-    //   }
-    // }
-    //MONTAGE AUDIO
   }
 
-  //**************************** **************** ***************************\\
-  //**************************** Animations Factory ***************************\\
+    //**************************** **************** ***************************\\
+   //**************************** Animations Factory ***************************\\
   //****************************** **************** *****************************\\
 
   /**
@@ -382,8 +363,8 @@ export class ScrollManager {
     }
   }
 
-  //*************************** ***************** ***************************\\
-  //*************************** Lenis smooth scroll ***************************\\
+    //*************************** ***************** ***************************\\
+   //*************************** Lenis smooth scroll ***************************\\
   //***************************** ***************** *****************************\\
 
   /**
