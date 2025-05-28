@@ -46,7 +46,7 @@ export class MusicManager {
             }),
             magic1: new Howl({
                 src: ['/sounds/sound_effect/magic1.mp3'],
-                volume: 1
+                volume: 0.09
             }),
             nappescrooollllo: new Howl({
                 src: ['/sounds/sound_effect/nappescrooollllo.mp3'],
