@@ -353,7 +353,8 @@ export class ScrollManager {
     //texte qui part vers le bas
     this.scrollTimeline.to(el, {
       y: 400,
-      duration: 3
+      duration: 3,
+      delay: 3
     })
   }
 
