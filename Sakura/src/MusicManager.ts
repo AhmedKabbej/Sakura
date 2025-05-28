@@ -85,4 +85,13 @@ export class MusicManager {
     //     });
     //     console.log("le son war fonctionne parfaitement")
     // }
+
+    tooglePlaying(sound:Howl) {
+        if (sound.playing()) {
+            sound.stop()
+            
+        }else{
+            sound.play()
+        }
+    }
 }

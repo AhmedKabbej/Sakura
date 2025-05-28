@@ -67,7 +67,7 @@ export class Intro {
             this.noiseValue = 0
             this.delta = 0
 
-            this.burnSpeed = 0.030;
+            this.burnSpeed = 0.0055;
             this.burnThreshold = -1;
             this.noiseMap = new Float32Array(this.maskSizeWidth * this.maskSizeHeight);
 

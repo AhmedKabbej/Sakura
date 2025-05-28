@@ -123,6 +123,7 @@ export class ScrollManager {
       x: 400,
       duration: 2,
       onStart: () => {
+        
         this.musicManager.sounds.magic.play()
       }
     }, "<")
@@ -282,7 +283,11 @@ export class ScrollManager {
       duration: 1.5,
       //MONTAGE AUDIO
       onStart: () => {
-        this.musicManager.sounds.magic1.play()
+        this.musicManager.tooglePlaying(this.musicManager.sounds.magic1)
+        
+      },
+      onEnter: () => {
+        console.log()
       }
       //MONTAGE AUDIO
     }, "<")
@@ -291,9 +296,9 @@ export class ScrollManager {
     const transformationFrames = this.frameContainers[3].querySelectorAll('.transformation-anim') as NodeListOf<HTMLElement>;
     this.transfromationAnim(transformationFrames, () => {
       //MONTAGE AUDIO
-      this.musicManager.sounds.magic1.stop()
-      this.musicManager.sounds.main.stop()
-      this.musicManager.sounds.main2.play()
+      this.musicManager.tooglePlaying(this.musicManager.sounds.magic1)
+      this.musicManager.tooglePlaying(this.musicManager.sounds.main)
+      this.musicManager.tooglePlaying(this.musicManager.sounds.main2)
       //MONTAGE AUDIO
     });
   }
