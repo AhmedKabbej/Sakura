@@ -119,12 +119,12 @@ export class ScrollManager {
       x: 400,
       duration: 2
     },"<")
-    this.addTextToTimeline('.text-4')
+    this.addTextAnimToTimelineForSelector('.text-4', 0)
 
     const transformationFrames = this.frameContainers[0].querySelectorAll('.transformation-anim') as NodeListOf<HTMLElement>;
     this.transfromationAnim(transformationFrames);
 
-    this.addTextToTimeline('.text-5')
+    this.addTextAnimToTimelineForSelector('.text-5', 0)
   }
 
   addTextToTimeline(selector:string){
@@ -282,7 +282,8 @@ export class ScrollManager {
     //texte qui part vers le bas
     this.scrollTimeline.to(el, {
       y: 400,
-      duration: 3
+      duration: 3,
+      delay:10
     })
   }
 
