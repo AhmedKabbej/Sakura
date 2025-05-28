@@ -159,21 +159,24 @@ body.blur-active *:not(#start-button):not(#start-button *) {
 
 .fee {
   position: relative;
-  height: 100%;
+  height: 70%;
   z-index: 1;
-  left: -30%;
+  left: -20%;
+  top: 20%
 }
 .yohiro-scene-1{
   position: absolute;
   top: 0px;
   width: 100%;
   opacity: 0;
+  left: 0;
 }
 .yohiro-transformation-scene-1{
   position: absolute;
   top: 0px;
   width: 100%;
   opacity: 0;
+  left: 0;
 }
 /* scene 2 */
 .plan-2-fire{
