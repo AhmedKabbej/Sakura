@@ -28,7 +28,7 @@ export class MusicManager {
             }),
             crow: new Howl({
                 src: ['/sounds/sound_effect/crow.wav'],
-                volume: 0.4
+                volume: 0.02
             }),
             guerre1: new Howl({
                 src: ['/sounds/sound_effect/guerre1.mp3'],
@@ -42,7 +42,7 @@ export class MusicManager {
             }),
             magic: new Howl({
                 src: ['/sounds/sound_effect/magic.mp3'],
-                volume: 0.9
+                volume: 0.2
             }),
             magic1: new Howl({
                 src: ['/sounds/sound_effect/magic1.mp3'],
