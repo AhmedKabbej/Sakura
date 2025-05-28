@@ -131,7 +131,7 @@ export class ScrollManager {
     const transformationFrames = this.frameContainers[0].querySelectorAll('.transformation-anim') as NodeListOf<HTMLElement>;
     this.transfromationAnim(transformationFrames);
 
-    this.addTextToTimeline('.text-5')
+    this.addTextAnimToTimelineForSelector('.text-5', 0)
   }
 
   addTextToTimeline(selector: string) {
@@ -149,8 +149,7 @@ export class ScrollManager {
    * adds to the scrollTrigger timeline all the animation happening during the focus on the second scene
    */
   scrollWithinFrameTwo() {
-    const sceneText = this.frameContainers[1].querySelector('.animated-text') as HTMLElement
-    this.scrollTimeline.add(this.createSplitTextAnim(sceneText));
+
     //MONTAGE AUDIO
 
     const plagueTale = gsap.to(this.scrollElements[1][0], {
@@ -195,6 +194,8 @@ export class ScrollManager {
       },
       "<"
     );
+    this.addTextAnimToTimelineForSelector('.text-6', 1)
+    this.addTextAnimToTimelineForSelector('.text-7', 1)
     this.scrollTimeline.to(
       this.scrollElements[1][2],
       {
@@ -290,34 +291,15 @@ export class ScrollManager {
     const transformationFrames = this.frameContainers[3].querySelectorAll('.transformation-anim') as NodeListOf<HTMLElement>;
     this.transfromationAnim(transformationFrames, () => {
       //MONTAGE AUDIO
-      console.log("wassup")
       this.musicManager.sounds.magic1.stop()
       this.musicManager.sounds.main.stop()
       this.musicManager.sounds.main2.play()
       //MONTAGE AUDIO
     });
-
-    //MONTAGE AUDIO
-    // onStart: () => {
-    //   this.musicManager.sounds.magic1.play()
-    // },
-    // onUpdate: () => {
-    //   if (magic1tween.progress() < 0.1 || magic1tween.progress() > 0.9) {
-    //     this.musicManager.sounds.magic1.stop()
-    //     this.musicManager.sounds.main.stop()
-
-    //     this.musicManager.sounds.main2.play()
-
-    //   }
-    //   else if (magic1tween.progress() > 0.5) {
-    //     this.musicManager.sounds.magic1.play()
-    //   }
-    // }
-    //MONTAGE AUDIO
   }
 
-  //**************************** **************** ***************************\\
-  //**************************** Animations Factory ***************************\\
+    //**************************** **************** ***************************\\
+   //**************************** Animations Factory ***************************\\
   //****************************** **************** *****************************\\
 
   /**
@@ -353,7 +335,8 @@ export class ScrollManager {
     //texte qui part vers le bas
     this.scrollTimeline.to(el, {
       y: 400,
-      duration: 3
+      duration: 3,
+      delay:10
     })
   }
 
@@ -381,8 +364,8 @@ export class ScrollManager {
     }
   }
 
-  //*************************** ***************** ***************************\\
-  //*************************** Lenis smooth scroll ***************************\\
+    //*************************** ***************** ***************************\\
+   //*************************** Lenis smooth scroll ***************************\\
   //***************************** ***************** *****************************\\
 
   /**

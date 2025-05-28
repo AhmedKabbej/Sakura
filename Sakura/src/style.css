@@ -213,6 +213,7 @@ body.blur-active *:not(#start-button):not(#start-button *) {
   position: absolute;
   bottom: 0px;
   opacity: 0;
+  padding: 3%;
 }
 
 .fade-out {
