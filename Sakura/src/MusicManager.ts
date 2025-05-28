@@ -38,7 +38,7 @@ export class MusicManager {
             }),
             guerreMainsound: new Howl({
                 src: ['/sounds/sound_effect/guerreMainsound.mp3'],
-                volume: 0.2
+                volume: 0.1
             }),
             magic: new Howl({
                 src: ['/sounds/sound_effect/magic.mp3'],
@@ -61,12 +61,12 @@ export class MusicManager {
             sabre: new Howl({
                 src: ['/sounds/sound_effect/sabre.mp3'],
                 loop: true,
-                volume: 0.9   
+                volume: 0.6   
             }),
             sabre2: new Howl({
                 src: ['/sounds/sound_effect/sabre2.mp3'],
                 loop: true,
-                volume: 0.9 
+                volume: 0.6
             }),
             wave: new Howl({
                 src: ['/sounds/sound_effect/wave.wav'],
