@@ -142,8 +142,9 @@ export class ScrollManager {
    * adds to the scrollTrigger timeline all the animation happening during the focus on the second scene
    */
   scrollWithinFrameTwo() {
-    const sceneText = this.frameContainers[1].querySelector('.animated-text') as HTMLElement
-    this.scrollTimeline.add(this.createSplitTextAnim(sceneText));
+    // const sceneText = this.frameContainers[1].querySelector('.animated-text') as HTMLElement
+    // this.scrollTimeline.add(this.createSplitTextAnim(sceneText));
+
     const tween = gsap.to(this.scrollElements[1][0], {
       x: -this.scrollElements[1][0].clientWidth  + this.sceneWidth,
       onStart: () => {
@@ -169,6 +170,8 @@ export class ScrollManager {
       },
       "<"
     );
+    this.addTextAnimToTimelineForSelector('.text-6', 1)
+    this.addTextAnimToTimelineForSelector('.text-7', 1)
     this.scrollTimeline.to(
       this.scrollElements[1][2],
       {
