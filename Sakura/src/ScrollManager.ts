@@ -62,7 +62,7 @@ export class ScrollManager {
       animation: this.scrollTimeline,
       pin: true,
       scrub: true,
-      end: window.innerWidth * this.frameContainers.length * 5, // this affects the speed of the scroll
+      end: window.innerWidth * this.frameContainers.length * 6, // this affects the speed of the scroll
     });
 
     this.frameContainers.forEach((_, idx) => {
@@ -72,6 +72,7 @@ export class ScrollManager {
       //get to the next scene
       this.scrollTimeline.to(this.scrollContainer, {
         x: "-=100vw",
+        duration: 3
       });
     });
   }
@@ -151,59 +152,61 @@ export class ScrollManager {
    */
   scrollWithinFrameTwo() {
 
-    //MONTAGE AUDIO
     this.addTextAnimToTimelineForSelector('.text-6', 1)
+
     const plagueTale = gsap.to(this.scrollElements[1][0], {
       x: -this.scrollElements[1][0].clientWidth + this.sceneWidth,
+      duration: 16,
+      //MONTAGE AUDIO
       onStart: () => {
-
         this.musicManager.sounds.guerreMainsound.play()
         this.musicManager.sounds.sabre.play()
         this.musicManager.sounds.sabre2.play()
-
-
-
       },
       onUpdate: () => {
-
-
         if (plagueTale.progress() < 0.1 || plagueTale.progress() > 0.9) {
           this.musicManager.sounds.plagueTale.stop()
         }
         else if (plagueTale.progress() > 0.5) {
           this.musicManager.sounds.plagueTale.play()
         }
-
       },
-
       onComplete: () => {
         this.musicManager.sounds.crow.play()
         this.musicManager.sounds.sabre.stop()
         this.musicManager.sounds.sabre2.stop()
         this.musicManager.sounds.guerreMainsound.stop()
-
       }
+      //MONTAGE AUDIO
     });
-    this.scrollTimeline.add(plagueTale);
+    this.scrollTimeline.add(plagueTale, "<");
 
-    //MONTAGE AUDIO
-    //MONTAGE AUDIO
     this.scrollTimeline.to(
       this.scrollElements[1][1],
       {
         x: -this.scrollElements[1][1].clientWidth + this.sceneWidth,
+        duration: 16,
+      },
+      "<"
+    )
+    .to(
+      this.scrollElements[1][2],
+      {
+        x: -this.scrollElements[1][2].clientWidth + this.sceneWidth,
+        duration: 16,
+      },
+      "<"
+    )
+    .to(
+      this.scrollElements[1][2],
+      {
+        x: -this.scrollElements[1][3].clientWidth + this.sceneWidth,
+        duration: 16,
       },
       "<"
     );
 
-    this.addTextAnimToTimelineForSelector('.text-7', 1,"<")
-    this.scrollTimeline.to(
-      this.scrollElements[1][2],
-      {
-        x: -this.scrollElements[1][2].clientWidth + this.sceneWidth,
-      },
-      "<"
-    );
+    this.addTextAnimToTimelineForSelector('.text-7', 1,"-=8")
   }
 
   /**
@@ -250,7 +253,7 @@ export class ScrollManager {
       // sun revoluytion \o/
       this.scrollTimeline.to(sunElement, {
         rotateZ: '-60deg',
-        duration: 3
+        duration: 5
 
       })
       //text anim
@@ -328,21 +331,25 @@ export class ScrollManager {
     return tween;
   }
 
-  addTextAnimToTimelineForSelector(selector: string, sceneId: number,position:string|undefined=undefined) {
+  addTextAnimToTimelineForSelector(selector: string, sceneId: number,position:string="+=0") {
     //text qui apparait
     const sceneText = this.frameContainers[sceneId].querySelector(selector) as HTMLElement
     this.addTextAnimToTimeline(sceneText,position)
   }
 
-  addTextAnimToTimeline(el: HTMLElement,position:string|undefined=undefined) {
-    //texte qui apparait
-    this.scrollTimeline.add(this.createSplitTextAnim(el));
-    //texte qui part vers le bas
-    this.scrollTimeline.to(el, {
-      y: 400,
-      duration: 3,
-      delay:10,
-    },position)
+  addTextAnimToTimeline(el: HTMLElement,position:string="+=0") {
+    const textTl = gsap.timeline()
+    textTl
+      //texte qui apparait
+      .add(this.createSplitTextAnim(el))
+      //texte qui part vers le bas
+      .to(el, {
+        y: 400,
+        duration: 2,
+        delay:5,
+      });
+    
+    this.scrollTimeline.add(textTl, position);
   }
 
   // transfromationAnim(frames: NodeListOf<HTMLElement>, completion: Function = () => {}) {
