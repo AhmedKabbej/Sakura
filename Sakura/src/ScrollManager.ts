@@ -194,7 +194,7 @@ export class ScrollManager {
           rotateZ: '-20deg'
         })
         // black box back to transparent
-        this.scrollTimeline.to(fadeOutElement, {
+        .to(fadeOutElement, {
           opacity: 0
         })
       };
@@ -206,16 +206,11 @@ export class ScrollManager {
       //text anim
       .add(this.createSplitTextAnim(scene3Texts[index]), "<")
       // black box appears (it's night time go to sleep and stop coding, also take a shower u nerd)
-      .to(fadeOutElement, {
-        opacity: 1,
-          onComplete: () => {
-            // hide the current img and text and show the next day's img
-            img.classList.add('hidden');
-            scene3Texts[index].classList.add('hidden')
-            if (index + 1 >= scene3Foregreounds.length) { return; }
-            scene3Foregreounds[index + 1].classList.remove('hidden')
-          }
-        });
+      .to(fadeOutElement, { opacity: 1 })
+      // hide current img and text & show next
+      .set([img, scene3Texts[index]], {opacity: 0});
+      if (index + 1 >= scene3Foregreounds.length) { return; }
+      this.scrollTimeline.set(scene3Foregreounds[index + 1], {opacity: 1});
     })
   }
 
