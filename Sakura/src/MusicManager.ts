@@ -15,7 +15,12 @@ export class MusicManager {
                 src: ['/sounds/main/AhmedSakuraProject.mp3'],
                 autoplay: true,
                 loop: true,
-                volume: 0.009
+                volume: 0.05   
+            }),
+            main2: new Howl({
+                src: ['/sounds/main/AhmedSakuraProject2.mp3'],
+                loop: true,
+                volume: 0.09   
             }),
             angelical: new Howl({
                 src: ['/sounds/sound_effect/angelical.mp3'],
@@ -23,6 +28,7 @@ export class MusicManager {
             }),
             crow: new Howl({
                 src: ['/sounds/sound_effect/crow.wav'],
+                volume: 0.4
             }),
             guerre1: new Howl({
                 src: ['/sounds/sound_effect/guerre1.mp3'],
@@ -32,12 +38,19 @@ export class MusicManager {
             }),
             guerreMainsound: new Howl({
                 src: ['/sounds/sound_effect/guerreMainsound.mp3'],
+                volume: 0.2
+            }),
+            magic: new Howl({
+                src: ['/sounds/sound_effect/magic.mp3'],
+                volume: 0.9
             }),
             magic1: new Howl({
                 src: ['/sounds/sound_effect/magic1.mp3'],
+                volume: 1
             }),
             nappescrooollllo: new Howl({
                 src: ['/sounds/sound_effect/nappescrooollllo.mp3'],
+                // fade(0.7, 0.6, 1, [d])
             }),
             plagueTale: new Howl({
                 src: ['/sounds/sound_effect/plagueTale.mp3'],
@@ -47,11 +60,13 @@ export class MusicManager {
             }),
             sabre: new Howl({
                 src: ['/sounds/sound_effect/sabre.mp3'],
-                loop: true
+                loop: true,
+                volume: 0.9   
             }),
             sabre2: new Howl({
                 src: ['/sounds/sound_effect/sabre2.mp3'],
-                loop: true
+                loop: true,
+                volume: 0.9 
             }),
             wave: new Howl({
                 src: ['/sounds/sound_effect/wave.wav'],
