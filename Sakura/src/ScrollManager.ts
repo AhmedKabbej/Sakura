@@ -115,7 +115,7 @@ export class ScrollManager {
     this.addTextAnimToTimelineForSelector('.text-2', 0)
     this.addTextAnimToTimelineForSelector('.text-3', 0)
     //fée qui apparait
-    this.scrollTimeline.to(".fee-scene-1", {
+    this.scrollTimeline.to("#fee-scene-1", {
       x: 400,
       duration: 2
     },"<")
@@ -227,9 +227,6 @@ export class ScrollManager {
     const textElements = this.frameContainers[3].querySelectorAll('.animated-text') as NodeListOf<HTMLElement>;
 
     const fairyEl = this.frameContainers[3].querySelector('#fee-scene-4');
-    const fadeToPink = this.frameContainers[3].querySelector('.fade-out-pink');
-    const charasEl = this.frameContainers[3].querySelector('#scene4-charas-confession');
-    const treeEl = this.frameContainers[3].querySelector('#scene4-sakura-tree');
 
     this.addTextAnimToTimeline(textElements[0])
 
