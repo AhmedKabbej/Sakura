@@ -38,7 +38,7 @@ body {
   position: absolute;
   top: 57%;
   /* Centre verticalement */
-  left: 120px;
+  left: 10%;
   /* Distance du bord gauche */
   transform: translateY(-50%);
   /* Corrige l’alignement vertical */
