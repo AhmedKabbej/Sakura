@@ -130,7 +130,7 @@ export class ScrollManager {
     this.addTextToTimeline('.text-4')
 
     const transformationFrames = this.frameContainers[0].querySelectorAll('.transformation-anim') as NodeListOf<HTMLElement>;
-    this.transfromationAnim(transformationFrames);
+    this.transformationAnim(transformationFrames);
 
     this.addTextAnimToTimelineForSelector('.text-5', 0)
   }
@@ -294,7 +294,7 @@ export class ScrollManager {
 
     this.addTextAnimToTimeline(textElements[2]);
     const transformationFrames = this.frameContainers[3].querySelectorAll('.transformation-anim') as NodeListOf<HTMLElement>;
-    this.transfromationAnim(transformationFrames, () => {
+    this.transformationAnim(transformationFrames, () => {
       //MONTAGE AUDIO
       this.musicManager.tooglePlaying(this.musicManager.sounds.magic1)
       this.musicManager.tooglePlaying(this.musicManager.sounds.main)
@@ -345,29 +345,63 @@ export class ScrollManager {
     },position)
   }
 
-  transfromationAnim(frames: NodeListOf<HTMLElement>, completion: Function = () => {}) {
-    for (let i = 0; i < frames.length-1; i++) {
-      const frameDisappear = frames[i];
-      const frameAppear = frames[i+1];
+  // transfromationAnim(frames: NodeListOf<HTMLElement>, completion: Function = () => {}) {
+  //   for (let i = 0; i < frames.length-1; i++) {
+  //     const frameDisappear = frames[i];
+  //     const frameAppear = frames[i+1];
 
-      this.scrollTimeline.to(frameDisappear,{
+  //     this.scrollTimeline.to(frameDisappear,{
+  //       opacity: 0,
+  //       duration: 2
+  //     })
+  //     if (i+1 >= frames.length - 1 && completion) {
+  //       this.scrollTimeline.to(frameAppear,{
+  //         opacity: 1,
+  //         duration: 2,
+  //         onComplete: () => completion()
+  //       },"<")
+  //     } else {
+  //       this.scrollTimeline.to(frameAppear,{
+  //         opacity: 1,
+  //         duration: 2
+  //       },"<")
+        
+  //     }
+  //   }
+  
+  // }
+  transformationAnim(frames: NodeListOf<HTMLElement>, completion: Function = () => {}) {
+    for (let i = 0; i < frames.length - 1; i++) {
+      const frameDisappear = frames[i];
+      const frameAppear = frames[i + 1];
+  
+      this.scrollTimeline.to(frameDisappear, {
         opacity: 0,
-        duration: 2
-      })
-      if (i+1 >= frames.length - 1 && completion) {
-        this.scrollTimeline.to(frameAppear,{
+        duration: 2,
+      });
+  
+      const isLast = i + 1 >= frames.length - 1;
+  
+      this.scrollTimeline.to(
+        frameAppear,
+        {
           opacity: 1,
           duration: 2,
-          onComplete: () => completion()
-        },"<")
-      } else {
-        this.scrollTimeline.to(frameAppear,{
-          opacity: 1,
-          duration: 2
-        },"<")
-      }
+          ...(isLast && {
+            onComplete: () => {
+              completion();
+            },
+            onReverseComplete: () => {
+              this.musicManager.sounds.main.play();
+              this.musicManager.sounds.main2.stop();
+            }
+          }),
+        },
+        "<"
+      );
     }
   }
+  
 
     //*************************** ***************** ***************************\\
    //*************************** Lenis smooth scroll ***************************\\
