@@ -240,20 +240,9 @@ export class ScrollManager {
       duration: 1.5
     },"<")
 
-    this.addTextAnimToTimeline(textElements[2])
-    this.scrollTimeline.to(fadeToPink, {
-      opacity: 1,
-      duration: 2,
-      onComplete: () => {
-          charasEl?.classList.add('hidden')
-          treeEl?.classList.remove('hidden')
-          fairyEl?.classList.add('hidden')
-      }
-    },"<")
-    this.scrollTimeline.to(fadeToPink, {
-      opacity: 0,
-      duration: 2
-    })
+    this.addTextAnimToTimeline(textElements[2]);
+    const transformationFrames = this.frameContainers[3].querySelectorAll('.transformation-anim') as NodeListOf<HTMLElement>;
+    this.transfromationAnim(transformationFrames);
   }
 
     //**************************** **************** ***************************\\
