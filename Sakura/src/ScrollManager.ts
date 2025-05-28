@@ -91,7 +91,7 @@ export class ScrollManager {
         break;
       case 2:
         this.scrollWithinFrameThree();
-        break;
+        break; 
       case 3:
         this.scrollWithinFrameFour();
         break;
