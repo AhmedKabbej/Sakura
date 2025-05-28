@@ -157,12 +157,11 @@ body.blur-active *:not(#start-button):not(#start-button *) {
   top: 10%;
 }
 
-.fee-scene-1 {
+.fee {
   position: relative;
-  width: 10%;
+  height: 100%;
   z-index: 1;
-  top: 50%;
-  left: -10%;
+  left: -30%;
 }
 .yohiro-scene-1{
   position: absolute;
@@ -177,12 +176,6 @@ body.blur-active *:not(#start-button):not(#start-button *) {
   opacity: 0;
 }
 /* scene 2 */
-.yohiro-scene-2{
-  position: absolute;
-  width: 100%;
-  bottom: 0px;
-  z-index: 40;
-}
 .plan-2-fire{
   z-index: 25;
 }
@@ -222,26 +215,12 @@ body.blur-active *:not(#start-button):not(#start-button *) {
   opacity: 0;
 }
 
-#scene4-charas-confession{
-  position: absolute;
-  left: -23%;
-  top: 10%;
-}
-
-#fee-scene-4 {
-  position: relative;
-  height: 50%;
-  top: 30%;
-  left: -30%;
-}
-
 .fade-out {
   background-color: black;
   opacity: 0;
 }
 
-.fade-out-pink {
-  background-color: pink;
+.transparent {
   opacity: 0;
 }
 

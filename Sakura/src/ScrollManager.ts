@@ -91,7 +91,7 @@ export class ScrollManager {
         break;
       case 2:
         this.scrollWithinFrameThree();
-        break;
+        break; 
       case 3:
         this.scrollWithinFrameFour();
         break;
@@ -122,32 +122,16 @@ export class ScrollManager {
     this.addTextAnimToTimelineForSelector('.text-2', 0)
     this.addTextAnimToTimelineForSelector('.text-3', 0)
     //fée qui apparait
-    this.scrollTimeline.to(".fee-scene-1", {
+    this.scrollTimeline.to("#fee-scene-1", {
       x: 400,
       duration: 2
     }, "<")
     this.addTextToTimeline('.text-4')
-    this.scrollTimeline.to(".plan-1-scene-1", {
-      opacity: 0,
-      duration: 2
-    })
-    this.scrollTimeline.to(".yohiro-transformation-scene-1", {
-      opacity: 1,
-      duration: 5
-    }, "<")
-    this.scrollTimeline.to(".yohiro-transformation-scene-1", {
-      opacity: 0,
-      duration: 2
-    })
-    this.scrollTimeline.to(".yohiro-scene-1", {
-      opacity: 1,
-      duration: 2
-    }, "<")
+
+    const transformationFrames = this.frameContainers[0].querySelectorAll('.transformation-anim') as NodeListOf<HTMLElement>;
+    this.transfromationAnim(transformationFrames);
+
     this.addTextToTimeline('.text-5')
-
-
-
-
   }
 
   addTextToTimeline(selector: string) {
@@ -160,7 +144,6 @@ export class ScrollManager {
       duration: 3
     })
   }
-
 
   /**
    * adds to the scrollTrigger timeline all the animation happening during the focus on the second scene
@@ -229,10 +212,6 @@ export class ScrollManager {
     const fadeOutElement = this.frameContainers[2].querySelector('.fade-out') as HTMLElement;
     const scene3Foregreounds = this.frameContainers[2].querySelectorAll('.scene-3-foreground');
     const scene3Texts = this.frameContainers[2].querySelectorAll('.animated-text') as NodeListOf<HTMLParagraphElement>;
-    // Un jour, il rencontra Sakura, une jeune femme bienveillante. 
-    // Ils devinrent amis, partageant des moments de complicité.
-    // Les jours passèrent et Yohiro tomba amoureux d'elle
-    // Un jour, il confessa ses sentiments et lui révéla sa véritable nature. Sakura ne dit rien.
 
     //MONTAGE AUDIO
     const angelicaltween = gsap.to(this.scrollElements[1][0], {
@@ -262,7 +241,7 @@ export class ScrollManager {
           rotateZ: '-20deg'
         })
         // black box back to transparent
-        this.scrollTimeline.to(fadeOutElement, {
+        .to(fadeOutElement, {
           opacity: 0
         })
       };
@@ -272,20 +251,14 @@ export class ScrollManager {
         duration: 3
 
       })
-        //text anim
-        .add(this.createSplitTextAnim(scene3Texts[index]), "<")
-        // black box appears (it's night time go to sleep and stop coding, also take a shower u nerd)
-        .to(fadeOutElement, {
-          opacity: 1,
-          onComplete: () => {
-            // hide the current img and text and show the next day's img
-            img.classList.add('hidden');
-            scene3Texts[index].classList.add('hidden')
-            if (index + 1 >= scene3Foregreounds.length) { return; }
-            scene3Foregreounds[index + 1].classList.remove('hidden')
-          }
-        });
-
+      //text anim
+      .add(this.createSplitTextAnim(scene3Texts[index]), "<")
+      // black box appears (it's night time go to sleep and stop coding, also take a shower u nerd)
+      .to(fadeOutElement, { opacity: 1 })
+      // hide current img and text & show next
+      .set([img, scene3Texts[index]], {opacity: 0});
+      if (index + 1 >= scene3Foregreounds.length) { return; }
+      this.scrollTimeline.set(scene3Foregreounds[index + 1], {opacity: 1});
     })
 
   }
@@ -298,9 +271,6 @@ export class ScrollManager {
     const textElements = this.frameContainers[3].querySelectorAll('.animated-text') as NodeListOf<HTMLElement>;
 
     const fairyEl = this.frameContainers[3].querySelector('#fee-scene-4');
-    const fadeToPink = this.frameContainers[3].querySelector('.fade-out-pink');
-    const charasEl = this.frameContainers[3].querySelector('#scene4-charas-confession');
-    const treeEl = this.frameContainers[3].querySelector('#scene4-sakura-tree');
 
     this.addTextAnimToTimeline(textElements[0])
 
@@ -308,45 +278,42 @@ export class ScrollManager {
     //La fée apparaît
     this.scrollTimeline.to(fairyEl, {
       x: 600,
-      duration: 1.5
-
-    }, "<")
-
-    this.addTextAnimToTimeline(textElements[2])
-    this.scrollTimeline.to(fadeToPink, {
-      opacity: 1,
-      duration: 2,
-      onComplete: () => {
-        charasEl?.classList.add('hidden')
-        treeEl?.classList.remove('hidden')
-        fairyEl?.classList.add('hidden')
-      }
-    }, "<")
-    
-    const magic1tween = gsap.to(fadeToPink, {
-      opacity: 0,
-      duration: 2,
+      duration: 1.5,
       //MONTAGE AUDIO
       onStart: () => {
         this.musicManager.sounds.magic1.play()
-      },
-      onUpdate: () => {
-        if (magic1tween.progress() < 0.1 || magic1tween.progress() > 0.9) {
-          this.musicManager.sounds.magic1.stop()
-          this.musicManager.sounds.main.stop()
-
-          this.musicManager.sounds.main2.play()
-  
-        }
-        else if (magic1tween.progress() > 0.5) {
-          this.musicManager.sounds.magic1.play()
-        }
       }
       //MONTAGE AUDIO
-    })
+    }, "<")
 
-    this.scrollTimeline.add(magic1tween)
+    this.addTextAnimToTimeline(textElements[2]);
+    const transformationFrames = this.frameContainers[3].querySelectorAll('.transformation-anim') as NodeListOf<HTMLElement>;
+    this.transfromationAnim(transformationFrames, () => {
+      //MONTAGE AUDIO
+      console.log("wassup")
+      this.musicManager.sounds.magic1.stop()
+      this.musicManager.sounds.main.stop()
+      this.musicManager.sounds.main2.play()
+      //MONTAGE AUDIO
+    });
 
+    //MONTAGE AUDIO
+    // onStart: () => {
+    //   this.musicManager.sounds.magic1.play()
+    // },
+    // onUpdate: () => {
+    //   if (magic1tween.progress() < 0.1 || magic1tween.progress() > 0.9) {
+    //     this.musicManager.sounds.magic1.stop()
+    //     this.musicManager.sounds.main.stop()
+
+    //     this.musicManager.sounds.main2.play()
+
+    //   }
+    //   else if (magic1tween.progress() > 0.5) {
+    //     this.musicManager.sounds.magic1.play()
+    //   }
+    // }
+    //MONTAGE AUDIO
   }
 
   //**************************** **************** ***************************\\
@@ -388,6 +355,30 @@ export class ScrollManager {
       y: 400,
       duration: 3
     })
+  }
+
+  transfromationAnim(frames: NodeListOf<HTMLElement>, completion: Function = () => {}) {
+    for (let i = 0; i < frames.length-1; i++) {
+      const frameDisappear = frames[i];
+      const frameAppear = frames[i+1];
+
+      this.scrollTimeline.to(frameDisappear,{
+        opacity: 0,
+        duration: 2
+      })
+      if (i+1 >= frames.length - 1 && completion) {
+        this.scrollTimeline.to(frameAppear,{
+          opacity: 1,
+          duration: 2,
+          onComplete: () => completion()
+        },"<")
+      } else {
+        this.scrollTimeline.to(frameAppear,{
+          opacity: 1,
+          duration: 2
+        },"<")
+      }
+    }
   }
 
   //*************************** ***************** ***************************\\
