@@ -120,25 +120,11 @@ export class ScrollManager {
       duration: 2
     },"<")
     this.addTextToTimeline('.text-4')
-    this.scrollTimeline.to(".plan-1-scene-1",{
-      opacity: 0,
-      duration: 2
-    })
-    this.scrollTimeline.to(".yohiro-transformation-scene-1",{
-      opacity: 1,
-      duration: 5
-    },"<")
-    this.scrollTimeline.to(".yohiro-transformation-scene-1",{
-      opacity: 0,
-      duration: 2
-    })
-    this.scrollTimeline.to(".yohiro-scene-1",{
-      opacity: 1,
-      duration: 2
-    },"<")
+
+    const transformationFrames = this.frameContainers[0].querySelectorAll('.transformation-anim') as NodeListOf<HTMLElement>;
+    this.transfromationAnim(transformationFrames);
+
     this.addTextToTimeline('.text-5')
-
-
   }
 
   addTextToTimeline(selector:string){
@@ -151,7 +137,6 @@ export class ScrollManager {
       duration: 3
     })
   }
-
 
   /**
    * adds to the scrollTrigger timeline all the animation happening during the focus on the second scene
@@ -196,10 +181,6 @@ export class ScrollManager {
     const fadeOutElement = this.frameContainers[2].querySelector('.fade-out') as HTMLElement;
     const scene3Foregreounds = this.frameContainers[2].querySelectorAll('.scene-3-foreground');
     const scene3Texts = this.frameContainers[2].querySelectorAll('.animated-text') as NodeListOf<HTMLParagraphElement>;
-    // Un jour, il rencontra Sakura, une jeune femme bienveillante. 
-    // Ils devinrent amis, partageant des moments de complicité.
-    // Les jours passèrent et Yohiro tomba amoureux d'elle
-    // Un jour, il confessa ses sentiments et lui révéla sa véritable nature. Sakura ne dit rien.
 
     scene3Foregreounds.forEach((img, index) => {
       if (index > 0) {
@@ -309,6 +290,22 @@ export class ScrollManager {
       y: 400,
       duration: 3
     })
+  }
+
+  transfromationAnim(frames: NodeListOf<HTMLElement>) {
+    for (let i = 0; i < frames.length-1; i++) {
+      const frameDisappear = frames[i];
+      const frameAppear = frames[i+1];
+
+      this.scrollTimeline.to(frameDisappear,{
+        opacity: 0,
+        duration: 2
+      })
+      .to(frameAppear,{
+        opacity: 1,
+        duration: 2
+      },"<")
+    }
   }
 
   //*************************** ***************** ***************************\\
