@@ -151,8 +151,13 @@ export class ScrollManager {
       },
       onUpdate: () => {
         console.log(tween.progress())
-        if (tween.progress() > 0.5) {
+        console.log(this.musicManager.sounds,this.musicManager.sounds.angelical);
+                if (tween.progress() > 0.5) {
           this.musicManager.sounds.angelical.play()
+          
+        }  if (tween.progress() > 0.9) {
+          this.musicManager.sounds.angelical.stop()
+          
         } 
       }
     });

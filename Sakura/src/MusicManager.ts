@@ -6,7 +6,7 @@ export class MusicManager {
 
     constructor() {
         this.createSound()
-        this.sounds = {}
+        
     }
     createSound() {
         
@@ -15,10 +15,11 @@ export class MusicManager {
                 src: ['/sounds/main/AhmedSakuraProject.mp3'],
                 autoplay: true,
                 loop: true,
-                volume: 0.0099
+                volume: 0.009
             }),
             angelical: new Howl({
                 src: ['/sounds/sound_effect/angelical.mp3'],
+                volume: 0.06
             }),
             crow: new Howl({
                 src: ['/sounds/sound_effect/crow.wav'],
