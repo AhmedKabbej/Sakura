@@ -112,10 +112,7 @@ export class ScrollManager {
       scale: 1.5,
       stager: 1,
       duration: 2,
-      onStart: () => {
-        this.musicManager.sounds.magic.play()
-      },
-
+      
       //MONTAGE AUDIO
     })
     this.scrollTimeline.add(magic, '<')
@@ -124,7 +121,10 @@ export class ScrollManager {
     //fée qui apparait
     this.scrollTimeline.to("#fee-scene-1", {
       x: 400,
-      duration: 2
+      duration: 2,
+      onStart: () => {
+        this.musicManager.sounds.magic.play()
+      }
     }, "<")
     this.addTextToTimeline('.text-4')
 
