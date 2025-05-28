@@ -97,7 +97,8 @@ export class Intro {
             // this.musicManager.sound.play()
             document.body.classList.remove("blur-active");
             this.startButton.classList.add("decrease-opacity");
-
+            
+            this.musicManager.sounds.nappescrooollllo.play()
             // Attend 3 secondes (3000 ms) avant de vraiment cacher l'élément
             setTimeout(() => {
                 this.startButton.style.display = "none";

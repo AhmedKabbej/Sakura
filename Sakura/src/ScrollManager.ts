@@ -10,7 +10,7 @@ export class ScrollManager {
   scrollContainer: HTMLElement; //contains all the scenes, the horizontal scrolling is in it
   frameContainers: NodeListOf<HTMLElement>; //the individual scenes containers
   scrollElements: { [index: number]: NodeListOf<HTMLElement> } = {}; //the individual scenes containers and the element within
-  sceneWidth : number;
+  sceneWidth: number;
   musicManager: MusicManager
 
   scrollTimeline: GSAPTimeline; //the timeline that plays with the scroll
@@ -57,12 +57,12 @@ export class ScrollManager {
    * Makes the link between scroll and the animation timeline & feeds the timeline its animations between each scenes and within each scenes
    */
   initScroll() {
-    ScrollTrigger.create({  
+    ScrollTrigger.create({
       trigger: this.scrollContainer,
       animation: this.scrollTimeline,
       pin: true,
       scrub: true,
-      end: window.innerWidth * this.frameContainers.length *5, // this affects the speed of the scroll
+      end: window.innerWidth * this.frameContainers.length * 5, // this affects the speed of the scroll
     });
 
     this.frameContainers.forEach((_, idx) => {
@@ -105,43 +105,52 @@ export class ScrollManager {
    */
   scrollWithinFrameOne() {
 
+    //MONTAGE AUDIO
     this.addTextAnimToTimelineForSelector('.text-1', 0)
     //zoom au tout debut
-    this.scrollTimeline.to(".zoom-in", {
+    const magic = gsap.to(".zoom-in", {
       scale: 1.5,
       stager: 1,
-      duration: 2
-    },"<")
+      duration: 2,
+      onStart: () => {
+        this.musicManager.sounds.magic.play()
+      },
+
+      //MONTAGE AUDIO
+    })
+    this.scrollTimeline.add(magic, '<')
     this.addTextAnimToTimelineForSelector('.text-2', 0)
     this.addTextAnimToTimelineForSelector('.text-3', 0)
     //fée qui apparait
     this.scrollTimeline.to(".fee-scene-1", {
       x: 400,
       duration: 2
-    },"<")
+    }, "<")
     this.addTextToTimeline('.text-4')
-    this.scrollTimeline.to(".plan-1-scene-1",{
+    this.scrollTimeline.to(".plan-1-scene-1", {
       opacity: 0,
       duration: 2
     })
-    this.scrollTimeline.to(".yohiro-transformation-scene-1",{
+    this.scrollTimeline.to(".yohiro-transformation-scene-1", {
       opacity: 1,
       duration: 5
-    },"<")
-    this.scrollTimeline.to(".yohiro-transformation-scene-1",{
+    }, "<")
+    this.scrollTimeline.to(".yohiro-transformation-scene-1", {
       opacity: 0,
       duration: 2
     })
-    this.scrollTimeline.to(".yohiro-scene-1",{
+    this.scrollTimeline.to(".yohiro-scene-1", {
       opacity: 1,
       duration: 2
-    },"<")
+    }, "<")
     this.addTextToTimeline('.text-5')
+
+
 
 
   }
 
-  addTextToTimeline(selector:string){
+  addTextToTimeline(selector: string) {
     //text qui apparait
     const sceneText = this.frameContainers[0].querySelector(selector) as HTMLElement
     this.scrollTimeline.add(this.createSplitTextAnim(sceneText));
@@ -159,24 +168,43 @@ export class ScrollManager {
   scrollWithinFrameTwo() {
     const sceneText = this.frameContainers[1].querySelector('.animated-text') as HTMLElement
     this.scrollTimeline.add(this.createSplitTextAnim(sceneText));
-    const tween = gsap.to(this.scrollElements[1][0], {
-      x: -this.scrollElements[1][0].clientWidth  + this.sceneWidth,
+    //MONTAGE AUDIO
+
+    const plagueTale = gsap.to(this.scrollElements[1][0], {
+      x: -this.scrollElements[1][0].clientWidth + this.sceneWidth,
       onStart: () => {
-        
+
+        this.musicManager.sounds.guerreMainsound.play()
+        this.musicManager.sounds.sabre.play()
+        this.musicManager.sounds.sabre2.play()
+
+
+
       },
       onUpdate: () => {
-        console.log(tween.progress())
-        console.log(this.musicManager.sounds,this.musicManager.sounds.angelical);
-                if (tween.progress() > 0.5) {
-          this.musicManager.sounds.angelical.play()
-          
-        }  if (tween.progress() > 0.9) {
-          this.musicManager.sounds.angelical.stop()
-          
-        } 
+
+
+        if (plagueTale.progress() < 0.1 || plagueTale.progress() > 0.9) {
+          this.musicManager.sounds.plagueTale.stop()
+        }
+        else if (plagueTale.progress() > 0.5) {
+          this.musicManager.sounds.plagueTale.play()
+        }
+
+      },
+
+      onComplete: () => {
+        this.musicManager.sounds.crow.play()
+        this.musicManager.sounds.sabre.stop()
+        this.musicManager.sounds.sabre2.stop()
+        this.musicManager.sounds.guerreMainsound.stop()
+
       }
     });
-    this.scrollTimeline.add(tween);
+    this.scrollTimeline.add(plagueTale);
+
+    //MONTAGE AUDIO
+    //MONTAGE AUDIO
     this.scrollTimeline.to(
       this.scrollElements[1][1],
       {
@@ -206,6 +234,27 @@ export class ScrollManager {
     // Les jours passèrent et Yohiro tomba amoureux d'elle
     // Un jour, il confessa ses sentiments et lui révéla sa véritable nature. Sakura ne dit rien.
 
+    //MONTAGE AUDIO
+    const angelicaltween = gsap.to(this.scrollElements[1][0], {
+      x: -this.scrollElements[1][0].clientWidth + this.sceneWidth,
+      onStart: () => {
+        this.musicManager.sounds.angelical.play()
+      },
+      onUpdate: () => {
+        if (angelicaltween.progress() < 0.1 || angelicaltween.progress() > 0.9) {
+          this.musicManager.sounds.angelical.stop()
+        }
+        else if (angelicaltween.progress() > 0.5) {
+          this.musicManager.sounds.angelical.play()
+        }
+      }
+    });
+    this.scrollTimeline.add(angelicaltween);
+
+
+    //MONTAGE AUDIO
+
+
     scene3Foregreounds.forEach((img, index) => {
       if (index > 0) {
         // put sun back to the right
@@ -221,12 +270,13 @@ export class ScrollManager {
       this.scrollTimeline.to(sunElement, {
         rotateZ: '-60deg',
         duration: 3
+
       })
-      //text anim
-      .add(this.createSplitTextAnim(scene3Texts[index]), "<")
-      // black box appears (it's night time go to sleep and stop coding, also take a shower u nerd)
-      .to(fadeOutElement, {
-        opacity: 1,
+        //text anim
+        .add(this.createSplitTextAnim(scene3Texts[index]), "<")
+        // black box appears (it's night time go to sleep and stop coding, also take a shower u nerd)
+        .to(fadeOutElement, {
+          opacity: 1,
           onComplete: () => {
             // hide the current img and text and show the next day's img
             img.classList.add('hidden');
@@ -235,7 +285,9 @@ export class ScrollManager {
             scene3Foregreounds[index + 1].classList.remove('hidden')
           }
         });
+
     })
+
   }
 
   /**
@@ -257,26 +309,48 @@ export class ScrollManager {
     this.scrollTimeline.to(fairyEl, {
       x: 600,
       duration: 1.5
-    },"<")
+
+    }, "<")
 
     this.addTextAnimToTimeline(textElements[2])
     this.scrollTimeline.to(fadeToPink, {
       opacity: 1,
       duration: 2,
       onComplete: () => {
-          charasEl?.classList.add('hidden')
-          treeEl?.classList.remove('hidden')
-          fairyEl?.classList.add('hidden')
+        charasEl?.classList.add('hidden')
+        treeEl?.classList.remove('hidden')
+        fairyEl?.classList.add('hidden')
       }
-    },"<")
-    this.scrollTimeline.to(fadeToPink, {
+    }, "<")
+    
+    const magic1tween = gsap.to(fadeToPink, {
       opacity: 0,
-      duration: 2
+      duration: 2,
+      //MONTAGE AUDIO
+      onStart: () => {
+        this.musicManager.sounds.magic1.play()
+      },
+      onUpdate: () => {
+        if (magic1tween.progress() < 0.1 || magic1tween.progress() > 0.9) {
+          this.musicManager.sounds.magic1.stop()
+          this.musicManager.sounds.main.stop()
+
+          this.musicManager.sounds.main2.play()
+  
+        }
+        else if (magic1tween.progress() > 0.5) {
+          this.musicManager.sounds.magic1.play()
+        }
+      }
+      //MONTAGE AUDIO
     })
+
+    this.scrollTimeline.add(magic1tween)
+
   }
 
-    //**************************** **************** ***************************\\
-   //**************************** Animations Factory ***************************\\
+  //**************************** **************** ***************************\\
+  //**************************** Animations Factory ***************************\\
   //****************************** **************** *****************************\\
 
   /**
@@ -300,13 +374,13 @@ export class ScrollManager {
     return tween;
   }
 
-  addTextAnimToTimelineForSelector(selector:string, sceneId: number) {
+  addTextAnimToTimelineForSelector(selector: string, sceneId: number) {
     //text qui apparait
     const sceneText = this.frameContainers[sceneId].querySelector(selector) as HTMLElement
     this.addTextAnimToTimeline(sceneText)
   }
 
-  addTextAnimToTimeline(el:HTMLElement){
+  addTextAnimToTimeline(el: HTMLElement) {
     //text qui apparait
     this.scrollTimeline.add(this.createSplitTextAnim(el));
     //texte qui part vers le bas
