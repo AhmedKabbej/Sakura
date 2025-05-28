@@ -152,7 +152,7 @@ export class ScrollManager {
   scrollWithinFrameTwo() {
 
     //MONTAGE AUDIO
-
+    this.addTextAnimToTimelineForSelector('.text-6', 1)
     const plagueTale = gsap.to(this.scrollElements[1][0], {
       x: -this.scrollElements[1][0].clientWidth + this.sceneWidth,
       onStart: () => {
@@ -195,8 +195,8 @@ export class ScrollManager {
       },
       "<"
     );
-    this.addTextAnimToTimelineForSelector('.text-6', 1)
-    this.addTextAnimToTimelineForSelector('.text-7', 1)
+
+    this.addTextAnimToTimelineForSelector('.text-7', 1,"<")
     this.scrollTimeline.to(
       this.scrollElements[1][2],
       {
@@ -279,7 +279,7 @@ export class ScrollManager {
     this.addTextAnimToTimeline(textElements[1])
     //La fée apparaît
     this.scrollTimeline.to(fairyEl, {
-      x: 600,
+      x: 300,
       duration: 1.5,
       //MONTAGE AUDIO
       onStart: () => {
@@ -328,21 +328,21 @@ export class ScrollManager {
     return tween;
   }
 
-  addTextAnimToTimelineForSelector(selector: string, sceneId: number) {
+  addTextAnimToTimelineForSelector(selector: string, sceneId: number,position:string|undefined=undefined) {
     //text qui apparait
     const sceneText = this.frameContainers[sceneId].querySelector(selector) as HTMLElement
-    this.addTextAnimToTimeline(sceneText)
+    this.addTextAnimToTimeline(sceneText,position)
   }
 
-  addTextAnimToTimeline(el: HTMLElement) {
-    //text qui apparait
+  addTextAnimToTimeline(el: HTMLElement,position:string|undefined=undefined) {
+    //texte qui apparait
     this.scrollTimeline.add(this.createSplitTextAnim(el));
     //texte qui part vers le bas
     this.scrollTimeline.to(el, {
       y: 400,
       duration: 3,
-      delay:10
-    })
+      delay:10,
+    },position)
   }
 
   transfromationAnim(frames: NodeListOf<HTMLElement>, completion: Function = () => {}) {
